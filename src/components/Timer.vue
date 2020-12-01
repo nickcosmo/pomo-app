@@ -1,8 +1,11 @@
 <template>
   <div>
+    <h3 v-if="status == 'study'">STUDY STUDY STUDY</h3>
+    <h3 v-if="status == 'break'">BREAK BREAK BREAK</h3>
     <h1 class="timer">
       {{ zeroMinute }}{{ minutes }}:{{ zeroSecond }}{{ seconds }}
     </h1>
+
     <div>
       <button @click="startTimer">START</button>
       <button @click="resetTimer">RESET</button>
@@ -28,6 +31,7 @@ export default {
       intId: null,
       progressWidth: 0,
       progressSeconds: 0,
+      status: "study",
     };
   },
   computed: {
@@ -47,11 +51,24 @@ export default {
     },
   },
   methods: {
+    setTitle() {
+      let minuteCount = this.minutes;
+      let secondCount = this.seconds;
+
+      if (this.minutes <= 9) {
+        minuteCount = `0${this.minutes}`;
+      }
+      if (this.seconds <= 9) {
+        secondCount = `0${this.seconds}`;
+      }
+
+      return document.title = `${minuteCount}:${secondCount}`;
+    },
     startTimer() {
       this.runningCount++;
       if (this.runningCount === 1) {
         this.intId = setInterval(() => {
-          if(this.seconds === 60 && this.minutes === 0) {
+          if (this.seconds === 0 && this.minutes === 0) {
             this.resetTimer();
             return null;
           }
@@ -59,12 +76,13 @@ export default {
           if (this.minutes >= 0) {
             if (this.seconds === 0) {
               this.seconds = 60;
-              this.minutes = this.minutes - 1;
+              this.minutes--;
             }
-            this.seconds = this.seconds - 1;
+            this.seconds--;
 
             this.progressSeconds++;
             this.progressWidth = (this.progressSeconds / 1500) * 100;
+            this.setTitle();
           }
         }, 1000);
       }
@@ -77,8 +95,17 @@ export default {
         this.runningCount = 0;
         this.progressSeconds = 0;
         this.progressWidth = 0;
+        if (this.status === "study") {
+          this.status = "break";
+        } else {
+          this.status = "study";
+        }
+        this.setTitle();
       }
     },
+  },
+  mounted: function () {
+    this.setTitle();
   },
 };
 </script>
@@ -103,8 +130,8 @@ button {
 }
 
 button:hover {
-  border-color: #00FFFF;
-  color: #00FFFF;
+  border-color: #00ffff;
+  color: #00ffff;
 }
 
 .circle-container {
