@@ -2,9 +2,7 @@
   <div>
     <h3 v-if="status == 'study'">STUDY STUDY STUDY</h3>
     <h3 v-if="status == 'break'">BREAK BREAK BREAK</h3>
-    <h1 class="timer">
-      {{ zeroMinute }}{{ minutes }}:{{ zeroSecond }}{{ seconds }}
-    </h1>
+    <h1 class="timer">{{ displayMinutes }}:{{ displaySeconds }}</h1>
 
     <div>
       <button @click="startTimer">START</button>
@@ -27,7 +25,7 @@ export default {
     return {
       minutes: 1,
       seconds: 0,
-      runningCount: 0,
+      startCount: 0,
       intId: null,
       progressWidth: 0,
       progressSeconds: 0,
@@ -35,51 +33,37 @@ export default {
     };
   },
   computed: {
-    zeroMinute() {
+    displayMinutes() {
       if (this.minutes <= 9) {
-        return 0;
-      } else {
-        return null;
+        return `0${this.minutes}`;
       }
+      return this.minutes;
     },
-    zeroSecond() {
+    displaySeconds() {
       if (this.seconds <= 9) {
-        return 0;
-      } else {
-        return null;
+        return `0${this.seconds}`;
       }
+      return this.seconds;
     },
   },
   methods: {
     setTitle() {
-      let minuteCount = this.minutes;
-      let secondCount = this.seconds;
-
-      if (this.minutes <= 9) {
-        minuteCount = `0${this.minutes}`;
-      }
-      if (this.seconds <= 9) {
-        secondCount = `0${this.seconds}`;
-      }
-
-      return document.title = `${minuteCount}:${secondCount}`;
+      return (document.title = `${this.displayMinutes}:${this.displaySeconds}`);
     },
     startTimer() {
-      this.runningCount++;
-      if (this.runningCount === 1) {
+      this.startCount++;
+      if (this.startCount === 1) {
         this.intId = setInterval(() => {
           if (this.seconds === 0 && this.minutes === 0) {
-            this.resetTimer();
-            return null;
+            return this.resetTimer();
           }
-
           if (this.minutes >= 0) {
             if (this.seconds === 0) {
-              this.seconds = 60;
+              this.seconds = 59;
               this.minutes--;
+            } else {
+              this.seconds--;
             }
-            this.seconds--;
-
             this.progressSeconds++;
             this.progressWidth = (this.progressSeconds / 1500) * 100;
             this.setTitle();
@@ -90,15 +74,17 @@ export default {
     resetTimer() {
       if (this.intId) {
         clearInterval(this.intId);
-        this.minutes = 25;
-        this.seconds = 0;
-        this.runningCount = 0;
+        this.startCount = 0;
         this.progressSeconds = 0;
         this.progressWidth = 0;
         if (this.status === "study") {
           this.status = "break";
+          this.minutes = 5;
+          this.seconds = 0;
         } else {
           this.status = "study";
+          this.minutes = 25;
+          this.seconds = 0;
         }
         this.setTitle();
       }
