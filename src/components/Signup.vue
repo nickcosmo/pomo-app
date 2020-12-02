@@ -1,8 +1,12 @@
 <template>
   <div>
-    <h1>Signin here!</h1>
+    <h1>Signup here!</h1>
     <div class="container">
       <form action="">
+        <div class="form-control">
+          <label for="username">name:</label>
+          <input type="text" id="username" name="username" />
+        </div>
         <div class="form-control">
           <label for="username">email:</label>
           <input type="text" id="username" name="username" />
@@ -12,13 +16,10 @@
           <input type="password" id="password" name="password" />
         </div>
         <base-button>submit</base-button>
-        <span
-          ><router-link to="/signup"
-            >Not a member? Signup instead!</router-link
-          ></span
-        >
+        <span><router-link to="/signin">Already a member? Signin instead!</router-link></span>
       </form>
     </div>
+    
   </div>
 </template>
 
@@ -50,17 +51,17 @@ input {
 }
 
 span {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 .container {
-  width: 30%;
-  margin: auto;
-  text-align: left;
+    width: 30%;
+    margin: auto;
+    text-align: left;
 }
 </style>

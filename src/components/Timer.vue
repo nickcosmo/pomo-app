@@ -1,8 +1,12 @@
 <template>
-  <div>
+  <div class="container">
     <h3 v-if="status == 'study'">STUDY STUDY STUDY</h3>
     <h3 v-if="status == 'break'">BREAK BREAK BREAK</h3>
-    <keep-alive><h1 class="timer">{{ displayMinutes }}:{{ displaySeconds }}</h1></keep-alive>
+    <keep-alive
+      ><h1 class="timer">
+        {{ displayMinutes }}:{{ displaySeconds }}
+      </h1></keep-alive
+    >
 
     <div>
       <base-button @click="startTimer">START</base-button>
@@ -20,7 +24,7 @@
 </template>
 
 <script>
-import BaseButton from './UI/BaseButton.vue';
+import BaseButton from "./UI/BaseButton.vue";
 
 export default {
   data() {
@@ -96,8 +100,8 @@ export default {
     this.setTitle();
   },
   components: {
-    BaseButton
-  }
+    BaseButton,
+  },
 };
 </script>
 
@@ -131,5 +135,20 @@ export default {
   justify-content: center;
   background-color: #00f3f3;
   animation: fill 25s linear infinite;
+}
+
+.container {
+  animation: enter 0.5s linear;
+}
+
+@keyframes enter {
+  0% {
+    transform: translateY(50px);
+    opacity: 0%;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 100%;
+  }
 }
 </style>

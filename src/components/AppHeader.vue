@@ -1,14 +1,14 @@
 <template>
   <nav>
-    <div>
+    <div><router-link to="/timer">
       <h1 class="title">POMO.</h1>
       <p>the pomodoro app</p>
-    </div>
+    </router-link></div>
     <div>
       <ul>
         <li><router-link to="/signin">sign in</router-link></li>
-        <li><router-link to="">sign up</router-link></li>
-        <li><router-link to="">dashboard</router-link></li>
+        <li><router-link to="/signup">sign up</router-link></li>
+        <li><router-link to="/dashboard">dashboard</router-link></li>
         <li><router-link to="/timer">timer</router-link></li>
       </ul>
     </div>
