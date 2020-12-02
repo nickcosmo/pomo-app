@@ -6,10 +6,10 @@
     </div>
     <div>
       <ul>
-        <li>sign up</li>
-        <li>sign in</li>
-        <li>dashboard</li>
-        <li>timer</li>
+        <li><router-link to="/signin">sign in</router-link></li>
+        <li><router-link to="">sign up</router-link></li>
+        <li><router-link to="">dashboard</router-link></li>
+        <li><router-link to="/timer">timer</router-link></li>
       </ul>
     </div>
   </nav>
@@ -55,5 +55,10 @@ li {
 li:hover {
   border-color: #00f6f6;
   color: #00f6f6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 </style>

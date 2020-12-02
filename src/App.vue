@@ -1,17 +1,15 @@
 <template>
   <app-header></app-header>
   <div>
-      <timer></timer>
+      <router-view></router-view>
   </div>
 </template>
 
 <script>
 import AppHeader from './components/AppHeader.vue';
-import Timer from './components/Timer.vue';
 
 export default {
   components: {
-    Timer,
     AppHeader,
   }
 }

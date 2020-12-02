@@ -2,16 +2,16 @@
   <div>
     <h3 v-if="status == 'study'">STUDY STUDY STUDY</h3>
     <h3 v-if="status == 'break'">BREAK BREAK BREAK</h3>
-    <h1 class="timer">{{ displayMinutes }}:{{ displaySeconds }}</h1>
+    <keep-alive><h1 class="timer">{{ displayMinutes }}:{{ displaySeconds }}</h1></keep-alive>
 
     <div>
-      <button @click="startTimer">START</button>
-      <button @click="resetTimer">RESET</button>
+      <base-button @click="startTimer">START</base-button>
+      <base-button @click="resetTimer">RESET</base-button>
     </div>
-    <div class="circle-container">
-      <div class="outest-circle circle">
+    <div class="bar-container">
+      <div class="outest-bar bar">
         <div
-          class="outer-circle circle"
+          class="outer-bar bar"
           :style="{ width: progressWidth + '%' }"
         ></div>
       </div>
@@ -20,10 +20,12 @@
 </template>
 
 <script>
+import BaseButton from './UI/BaseButton.vue';
+
 export default {
   data() {
     return {
-      minutes: 1,
+      minutes: 25,
       seconds: 0,
       startCount: 0,
       intId: null,
@@ -93,6 +95,9 @@ export default {
   mounted: function () {
     this.setTitle();
   },
+  components: {
+    BaseButton
+  }
 };
 </script>
 
@@ -102,43 +107,25 @@ export default {
   color: white;
 }
 
-button {
-  font-family: inherit;
-  font-size: 25px;
-  height: 50px;
-  outline: none;
-  border: 2px solid white;
-  background-color: inherit;
-  color: white;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin: 0px 10px;
-}
-
-button:hover {
-  border-color: #00ffff;
-  color: #00ffff;
-}
-
-.circle-container {
+.bar-container {
   margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.circle {
+.bar {
   display: inline-block;
   height: 20px;
 }
 
-.outest-circle {
+.outest-bar {
   display: inline-block;
   width: 700px;
   background-color: #efefef;
 }
 
-.outer-circle {
+.outer-bar {
   display: flex;
   align-items: center;
   justify-content: center;
