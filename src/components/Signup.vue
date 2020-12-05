@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1>Signup here!</h1>
+    <h1>Sign Up Here!</h1>
     <div class="container">
       <form action="">
         <div class="form-control">
-          <label for="username">name:</label>
-          <input type="text" id="username" name="username" />
+          <label for="name">name:</label>
+          <input type="text" id="name" name="name" />
         </div>
         <div class="form-control">
-          <label for="username">email:</label>
-          <input type="text" id="username" name="username" />
+          <label for="email">email:</label>
+          <input type="email" id="email" name="email" />
         </div>
         <div class="form-control">
           <label for="password">password:</label>

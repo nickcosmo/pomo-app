@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h1>Signin here!</h1>
+    <h1>Log In Here!</h1>
     <div class="container">
       <form action="">
         <div class="form-control">
-          <label for="username">email:</label>
-          <input type="text" id="username" name="username" />
+          <label for="email">email:</label>
+          <input type="email" id="email" name="email" />
         </div>
         <div class="form-control">
           <label for="password">password:</label>

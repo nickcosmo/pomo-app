@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <h3 v-if="status == 'study'">STUDY STUDY STUDY</h3>
-    <h3 v-if="status == 'break'">BREAK BREAK BREAK</h3>
+    <!-- <h3 v-if="status == 'study'">STUDY STUDY STUDY</h3> -->
+    <!-- <h3 v-if="status == 'break'">BREAK BREAK BREAK</h3> -->
     <keep-alive
       ><h1 class="timer">
         {{ displayMinutes }}:{{ displaySeconds }}
