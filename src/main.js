@@ -6,6 +6,7 @@ import Timer from './components/Timer.vue';
 import Signin from './components/Signin.vue';
 import Signup from './components/Signup.vue';
 import Dashboard from './components/Dashboard.vue';
+import Settings from './components/Settings.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,6 +16,7 @@ const router = createRouter({
     { path: "/signin", component: Signin },
     { path: "/signup", component: Signup },
     { path: "/dashboard", component: Dashboard },
+    { path: "/settings", component: Settings },
   ],
 });
 

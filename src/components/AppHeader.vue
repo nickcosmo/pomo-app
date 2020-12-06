@@ -10,6 +10,7 @@
         <li><router-link to="/signup">sign up</router-link></li>
         <li><router-link to="/dashboard">dashboard</router-link></li>
         <li><router-link to="/timer">timer</router-link></li>
+        <li><router-link to="/settings">settings</router-link></li>
       </ul>
     </div>
   </nav>

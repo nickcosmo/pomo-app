@@ -2,12 +2,9 @@
   <div class="container">
     <!-- <h3 v-if="status == 'study'">STUDY STUDY STUDY</h3> -->
     <!-- <h3 v-if="status == 'break'">BREAK BREAK BREAK</h3> -->
-    <keep-alive
-      ><h1 class="timer">
+      <h1 class="timer">
         {{ displayMinutes }}:{{ displaySeconds }}
-      </h1></keep-alive
-    >
-
+      </h1>
     <div>
       <base-button @click="startTimer">START</base-button>
       <base-button @click="resetTimer">RESET</base-button>
@@ -19,6 +16,9 @@
           :style="{ width: progressWidth + '%' }"
         ></div>
       </div>
+    </div>
+    <div class="count">
+      <h3>count: {{ count }}/4</h3>
     </div>
   </div>
 </template>
@@ -36,6 +36,7 @@ export default {
       progressWidth: 0,
       progressSeconds: 0,
       status: "study",
+      count: 0,
     };
   },
   computed: {
@@ -83,10 +84,18 @@ export default {
         this.startCount = 0;
         this.progressSeconds = 0;
         this.progressWidth = 0;
+        if (this.count === 4 ) {
+          this.status = "longBreak";
+          this.minutes = 15;
+          this.seconds = 0;
+          this.setTitle();
+          return null;
+        }
         if (this.status === "study") {
           this.status = "break";
           this.minutes = 5;
           this.seconds = 0;
+          this.count++;
         } else {
           this.status = "study";
           this.minutes = 25;
@@ -106,6 +115,10 @@ export default {
 </script>
 
 <style scoped>
+.count {
+  margin-top: 5px;
+}
+
 .timer {
   font-size: 200px;
   color: white;

@@ -2,20 +2,20 @@
   <div>
     <h1>Sign Up Here!</h1>
     <div class="container">
-      <form action="">
+      <form @submit.prevent="pushSignup()">
         <div class="form-control">
           <label for="name">name:</label>
-          <input type="text" id="name" name="name" />
+          <input type="text" id="name" name="name" v-model="name"/>
         </div>
         <div class="form-control">
           <label for="email">email:</label>
-          <input type="email" id="email" name="email" />
+          <input type="email" id="email" name="email" v-model="email"/>
         </div>
         <div class="form-control">
           <label for="password">password:</label>
-          <input type="password" id="password" name="password" />
+          <input type="password" id="password" name="password" v-model="password"/>
         </div>
-        <base-button>submit</base-button>
+        <base-button type="submit">submit</base-button>
         <span><router-link to="/signin">Already a member? Signin instead!</router-link></span>
       </form>
     </div>
@@ -27,6 +27,28 @@
 import BaseButton from "./UI/BaseButton.vue";
 
 export default {
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    pushSignup() {
+      fetch('http://localhost:3000/new-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: this.name,
+          email: this.email,
+          password: this.password
+        })
+      })
+    }
+  },
   components: {
     BaseButton,
   },
