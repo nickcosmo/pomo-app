@@ -3,7 +3,7 @@
     <h1 class="timer">{{ displayMinutes }}:{{ displaySeconds }}</h1>
     <div>
       <base-button @click="startTimer">START</base-button>
-      <!-- <base-button @click="resetTimer">NEXT</base-button> -->
+      <base-button @click="resetTimer">NEXT</base-button>
     </div>
     <div class="bar-container">
       <div class="outest-bar bar">
@@ -32,36 +32,13 @@ export default {
     startTimer() {
       this.$store.dispatch("startTimer");
     },
-    // resetTimer() {
-    //   if (this.intId) {
-    //     clearInterval(this.intId);
-    //     this.startCount = 0;
-    //     this.progressSeconds = 0;
-    //     this.progressWidth = 0;
-    //     if (this.count === 4 ) {
-    //       this.status = "longBreak";
-    //       this.minutes = 15;
-    //       this.seconds = 0;
-    //       this.setTitle();
-    //       return null;
-    //     }
-    //     if (this.status === "study") {
-    //       this.status = "break";
-    //       this.minutes = 5;
-    //       this.seconds = 0;
-    //       this.count++;
-    //     } else {
-    //       this.status = "study";
-    //       this.minutes = 25;
-    //       this.seconds = 0;
-    //     }
-    //     this.setTitle();
-    //   }
-    // },
+    resetTimer() {
+      this.$store.dispatch("resetTimer");
+    }
+
   },
   mounted: function () {
     this.$store.commit("initMinutes");
-    this.$store.commit("setTitle");
   },
   components: {
     BaseButton,
