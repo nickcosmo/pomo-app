@@ -2,11 +2,13 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 
-import Timer from './components/Timer.vue';
-import Signin from './components/Signin.vue';
-import Signup from './components/Signup.vue';
-import Dashboard from './components/Dashboard.vue';
-import Settings from './components/Settings.vue';
+import Timer from "./components/Timer.vue";
+import Signin from "./components/Signin.vue";
+import Signup from "./components/Signup.vue";
+import Dashboard from "./components/Dashboard.vue";
+import Settings from "./components/Settings.vue";
+
+import store  from "./store/timer/index.js";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,6 +23,8 @@ const router = createRouter({
 });
 
 const app = createApp(App);
+
+app.use(store);
 
 app.use(router);
 

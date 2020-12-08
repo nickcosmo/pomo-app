@@ -51,12 +51,12 @@ div {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: #9999;
+  background: #00f6f6;
   cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-  background: #9999;
+  background: #00f6f6;;
   cursor: pointer;
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
   <app-header></app-header>
   <div>
-      <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import AppHeader from './components/AppHeader.vue';
+import AppHeader from "./components/AppHeader.vue";
 
 export default {
   components: {
     AppHeader,
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -21,11 +21,13 @@ html {
   margin: none;
 }
 
-div {
+div,
+header {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   margin-top: 100px;
   color: white;
+  background-color: black;
 }
 </style>

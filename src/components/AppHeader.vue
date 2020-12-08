@@ -6,11 +6,11 @@
     </router-link></div>
     <div>
       <ul>
-        <li><router-link to="/signin">log in</router-link></li>
-        <li><router-link to="/signup">sign up</router-link></li>
-        <li><router-link to="/dashboard">dashboard</router-link></li>
-        <li><router-link to="/timer">timer</router-link></li>
-        <li><router-link to="/settings">settings</router-link></li>
+        <router-link to="/signin"><li>log in</li></router-link>
+        <router-link to="/signup"><li>sign up</li></router-link>
+        <router-link to="/dashboard"><li>dashboard</li></router-link>
+        <router-link to="/timer"><li>timer</li></router-link>
+        <router-link to="/settings"><li>settings</li></router-link>
       </ul>
     </div>
   </nav>

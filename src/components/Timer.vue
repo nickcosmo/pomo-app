@@ -1,13 +1,9 @@
 <template>
   <div class="container">
-    <!-- <h3 v-if="status == 'study'">STUDY STUDY STUDY</h3> -->
-    <!-- <h3 v-if="status == 'break'">BREAK BREAK BREAK</h3> -->
-      <h1 class="timer">
-        {{ displayMinutes }}:{{ displaySeconds }}
-      </h1>
+    <h1 class="timer">{{ displayMinutes }}:{{ displaySeconds }}</h1>
     <div>
       <base-button @click="startTimer">START</base-button>
-      <base-button @click="resetTimer">RESET</base-button>
+      <!-- <base-button @click="resetTimer">NEXT</base-button> -->
     </div>
     <div class="bar-container">
       <div class="outest-bar bar">
@@ -18,95 +14,54 @@
       </div>
     </div>
     <div class="count">
-      <h3>count: {{ count }}/4</h3>
+      <h3>count: {{ pomodoroCount }}/4</h3>
     </div>
   </div>
 </template>
 
 <script>
 import BaseButton from "./UI/BaseButton.vue";
+import { mapState, mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      minutes: 25,
-      seconds: 0,
-      startCount: 0,
-      intId: null,
-      progressWidth: 0,
-      progressSeconds: 0,
-      status: "study",
-      count: 0,
-    };
-  },
   computed: {
-    displayMinutes() {
-      if (this.minutes <= 9) {
-        return `0${this.minutes}`;
-      }
-      return this.minutes;
-    },
-    displaySeconds() {
-      if (this.seconds <= 9) {
-        return `0${this.seconds}`;
-      }
-      return this.seconds;
-    },
+    ...mapGetters(['displayMinutes', 'displaySeconds']),
+    ...mapState(['progressSeconds', 'progressWidth', 'pomodoroCount']),
   },
   methods: {
-    setTitle() {
-      return (document.title = `${this.displayMinutes}:${this.displaySeconds}`);
-    },
     startTimer() {
-      this.startCount++;
-      if (this.startCount === 1) {
-        this.intId = setInterval(() => {
-          if (this.seconds === 0 && this.minutes === 0) {
-            return this.resetTimer();
-          }
-          if (this.minutes >= 0) {
-            if (this.seconds === 0) {
-              this.seconds = 59;
-              this.minutes--;
-            } else {
-              this.seconds--;
-            }
-            this.progressSeconds++;
-            this.progressWidth = (this.progressSeconds / 1500) * 100;
-            this.setTitle();
-          }
-        }, 1000);
-      }
+      this.$store.dispatch("startTimer");
     },
-    resetTimer() {
-      if (this.intId) {
-        clearInterval(this.intId);
-        this.startCount = 0;
-        this.progressSeconds = 0;
-        this.progressWidth = 0;
-        if (this.count === 4 ) {
-          this.status = "longBreak";
-          this.minutes = 15;
-          this.seconds = 0;
-          this.setTitle();
-          return null;
-        }
-        if (this.status === "study") {
-          this.status = "break";
-          this.minutes = 5;
-          this.seconds = 0;
-          this.count++;
-        } else {
-          this.status = "study";
-          this.minutes = 25;
-          this.seconds = 0;
-        }
-        this.setTitle();
-      }
-    },
+    // resetTimer() {
+    //   if (this.intId) {
+    //     clearInterval(this.intId);
+    //     this.startCount = 0;
+    //     this.progressSeconds = 0;
+    //     this.progressWidth = 0;
+    //     if (this.count === 4 ) {
+    //       this.status = "longBreak";
+    //       this.minutes = 15;
+    //       this.seconds = 0;
+    //       this.setTitle();
+    //       return null;
+    //     }
+    //     if (this.status === "study") {
+    //       this.status = "break";
+    //       this.minutes = 5;
+    //       this.seconds = 0;
+    //       this.count++;
+    //     } else {
+    //       this.status = "study";
+    //       this.minutes = 25;
+    //       this.seconds = 0;
+    //     }
+    //     this.setTitle();
+    //   }
+    // },
   },
   mounted: function () {
-    this.setTitle();
+    this.$store.commit("initMinutes");
+    this.$store.commit("setTitle");
   },
   components: {
     BaseButton,
@@ -150,7 +105,7 @@ export default {
   animation: fill 25s linear infinite;
 }
 
-.container {
+/* .container {
   animation: enter 0.5s linear;
 }
 
@@ -163,5 +118,5 @@ export default {
     transform: translateY(0px);
     opacity: 100%;
   }
-}
+} */
 </style>

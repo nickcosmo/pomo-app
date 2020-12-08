@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>settings</h1>
+    <h1>Settings</h1>
     <div class="slider-container">
       <label>study length: {{ studyLength }}</label>
       <slider @slide="update" :val="studyLength" length="study"></slider>
@@ -11,7 +11,15 @@
     </div>
     <div class="slider-container">
       <label>long break length: {{ longBreakLength }}</label>
-      <slider @slide="update" :val="longBreakLength" length="long-break"></slider>
+      <slider
+        @slide="update"
+        :val="longBreakLength"
+        length="long-break"
+      ></slider>
+    </div>
+    <div class="slider-container">
+      <label for="goal">set daily goal</label>
+      <input type="number" min="0" max="24" id="goal" name="goal" value="0" />
     </div>
     <base-button>update profile</base-button>
   </div>
@@ -33,8 +41,7 @@ export default {
     update(value) {
       if (value[1] === "study") {
         this.studyLength = value[0];
-      }
-      else if (value[1] === "break") {
+      } else if (value[1] === "break") {
         this.breakLength = value[0];
       } else {
         this.longBreakLength = value[0];
@@ -43,7 +50,7 @@ export default {
   },
   components: {
     Slider,
-    BaseButton
+    BaseButton,
   },
 };
 </script>
@@ -53,18 +60,30 @@ h1 {
   font-size: 60px;
 }
 
+input {
+  width: 60%;
+  font-size: 28px;
+  height: 30px;
+  text-align: center;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  padding-left: 15px;
+}
+
 label {
+  display: block;
   font-size: 30px;
 }
 
 .container {
   width: 40%;
   margin: auto;
-  border: 2px solid #efefef;
   padding: 10px;
 }
 
-.slider-container {
+.slider-container,
+input {
   margin-top: 10px;
 }
 
