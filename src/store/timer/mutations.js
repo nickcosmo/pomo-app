@@ -14,16 +14,18 @@ const mutations = {
   updateProgressSeconds: (state) => state.progressSeconds++,
   updateProgressWidth: (state, initMins) =>
     (state.progressWidth = (state.progressSeconds / (initMins * 60)) * 100),
-  trackInterval: (state, interval) => (state.intId = interval),
   startTracker: (state) => state.startCount++,
+  resetStartCount: (state) => state.startCount = 0,
   decreaseSeconds: (state, num) =>
     num ? (state.currentTime.seconds = num) : state.currentTime.seconds--,
   decreaseMinutes: (state) => state.currentTime.minutes--,
+  updateStudyInterval: (state, newValue) => state.timeSettings.studyInterval = newValue,
+  updateBreakInterval: (state, newValue) => state.timeSettings.breakInterval = newValue,
+  updateLongBreakInterval: (state, newValue) => state.timeSettings.longBreakInterval = newValue,
   resetValues(state) {
-    state.startCount = 0;
-    state.currentTime.seconds = 0;
-    state.progressSeconds = 0;
-    state.progressWidth = 0;
+    if(state.currentTime.seconds > 0) {
+      state.currentTime.seconds = 0;
+    } 
     if(state.status === "longBreak") {
       state.pomodoroCount = 0;
       state.status = "study";

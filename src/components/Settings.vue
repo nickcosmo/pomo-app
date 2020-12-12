@@ -2,19 +2,36 @@
   <div class="container">
     <h1>Settings</h1>
     <div class="slider-container">
-      <label>study length: {{ studyLength }}</label>
-      <slider @slide="update" :val="studyLength" length="study"></slider>
-    </div>
-    <div class="slider-container">
-      <label>break length: {{ breakLength }}</label>
-      <slider @slide="update" :val="breakLength" length="break"></slider>
-    </div>
-    <div class="slider-container">
-      <label>long break length: {{ longBreakLength }}</label>
+      <label>study length: {{ studyInterval }}</label>
       <slider
         @slide="update"
-        :val="longBreakLength"
+        :val="studyInterval"
+        length="study"
+        min="20"
+        max="45"
+        step="5"
+      ></slider>
+    </div>
+    <div class="slider-container">
+      <label>break length: {{ breakInterval }}</label>
+      <slider
+        @slide="update"
+        :val="breakInterval"
+        length="break"
+        min="5"
+        max="15"
+        step="5"
+      ></slider>
+    </div>
+    <div class="slider-container">
+      <label>long break length: {{ longBreakInterval }}</label>
+      <slider
+        @slide="update"
+        :val="longBreakInterval"
         length="long-break"
+        min="10"
+        max="30"
+        step="5"
       ></slider>
     </div>
     <div class="slider-container">
@@ -28,24 +45,17 @@
 <script>
 import Slider from "./UI/Slider.vue";
 import BaseButton from "./UI/BaseButton.vue";
+import { mapState } from "vuex";
 
 export default {
-  data() {
-    return {
-      studyLength: 5,
-      breakLength: 5,
-      longBreakLength: 5,
-    };
-  },
+  computed: mapState({
+    studyInterval: (state) => state.timeSettings.studyInterval,
+    breakInterval: (state) => state.timeSettings.breakInterval,
+    longBreakInterval: (state) => state.timeSettings.longBreakInterval,
+  }),
   methods: {
-    update(value) {
-      if (value[1] === "study") {
-        this.studyLength = value[0];
-      } else if (value[1] === "break") {
-        this.breakLength = value[0];
-      } else {
-        this.longBreakLength = value[0];
-      }
+    update(values) {
+      this.$store.dispatch("updateSettings", values);
     },
   },
   components: {

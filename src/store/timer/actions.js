@@ -16,7 +16,7 @@ const actions = {
           context.state.currentTime.seconds === 0 &&
           context.state.currentTime.minutes === 0
         ) {
-            context.commit("resetTimer");
+          context.dispatch("resetTimer");
         }
         if (context.state.currentTime.minutes >= 0) {
           if (context.state.currentTime.seconds === 0) {
@@ -34,15 +34,46 @@ const actions = {
     }
   },
   resetTimer(context) {
-    if (context.state.intId) {
       clearInterval(context.state.intId);
+      context.commit("resetStartCount");
       context.commit("resetValues");
       context.dispatch("setTitle");
-    }
   },
   setTitle(context) {
     return (document.title = `${context.getters.displayMinutes}:${context.getters.displaySeconds}`);
   },
+  updateSettings(context, values) {
+    if (values[1] === "study") {
+      context.commit("updateStudyInterval", values[0]);
+    } else if (values[1] === "break") {
+      context.commit("updateBreakInterval", values[0]);
+    } else {
+      context.commit("updateLongBreakInterval", values[0]);
+    }
+  },
+  // resetValues(context) {
+  //   state.startCount = 0;
+  //   state.currentTime.seconds = 0;
+  //   state.progressSeconds = 0;
+  //   state.progressWidth = 0;
+  //   if(state.status === "longBreak") {
+  //     state.pomodoroCount = 0;
+  //     state.status = "study";
+  //     state.currentTime.minutes = state.timeSettings.studyInterval;
+  //     return null;
+  //   }
+  //   if (state.status === "study") {
+  //     state.pomodoroCount++;
+  //     if (state.pomodoroCount === 4) {
+  //       state.status = "longBreak";
+  //       state.currentTime.minutes = state.timeSettings.longBreakInterval;
+  //       return null;
+  //     }
+  //     state.status = "break";
+  //     state.currentTime.minutes = state.timeSettings.breakInterval;
+  //     return null
+  //   }
+  // }
 };
 
 export default actions;

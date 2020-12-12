@@ -2,8 +2,9 @@
   <div>
     <input
       type="range"
-      min="0"
-      max="10"
+      :min="min"
+      :max="max"
+      :step="step"
       class="slider"
       id="myRange"
       v-model="slide"
@@ -14,11 +15,10 @@
 
 <script>
 export default {
-  props: ["val", "length"],
+  props: ["val", "length", "min", "max", "step"],
   data() {
     return {
       slide: this.val,
-      
     };
   },
   methods: {
@@ -48,9 +48,9 @@ div {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  width: 15px;
+  height: 40px;
+  border-radius: 5px;
   background: #00f6f6;
   cursor: pointer;
 }
