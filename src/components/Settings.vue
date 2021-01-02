@@ -7,7 +7,7 @@
         @slide="update"
         :val="studyInterval"
         length="study"
-        min="20"
+        min="15"
         max="45"
         step="5"
       ></slider>
@@ -18,9 +18,9 @@
         @slide="update"
         :val="breakInterval"
         length="break"
-        min="5"
+        min="3"
         max="15"
-        step="5"
+        step="2"
       ></slider>
     </div>
     <div class="slider-container">
