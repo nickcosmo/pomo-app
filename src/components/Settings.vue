@@ -38,13 +38,13 @@
       <label for="goal">set daily goal</label>
       <input type="number" min="0" max="24" id="goal" name="goal" value="0" />
     </div>
-    <base-button>update profile</base-button>
+    <base-button @click="pushUpdate">update profile</base-button>
   </div>
 </template>
 
 <script>
 import Slider from "./UI/Slider.vue";
-import BaseButton from "./UI/BaseButton.vue";
+import BaseButton from "@/components/UI/BaseButton.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -57,6 +57,9 @@ export default {
     update(values) {
       this.$store.dispatch("updateSettings", values);
     },
+    pushUpdate() {
+      this.$router.push('timer');
+    }
   },
   components: {
     Slider,

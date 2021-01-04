@@ -11,6 +11,7 @@
         <router-link to="/dashboard"><li>dashboard</li></router-link>
         <router-link to="/timer"><li>timer</li></router-link>
         <router-link to="/settings"><li>settings</li></router-link>
+        <a href="#"><li>log out</li></a>
       </ul>
     </div>
   </nav>

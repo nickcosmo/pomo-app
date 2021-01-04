@@ -23,6 +23,7 @@ const mutations = {
   updateBreakInterval: (state, newValue) => state.timeSettings.breakInterval = newValue,
   updateLongBreakInterval: (state, newValue) => state.timeSettings.longBreakInterval = newValue,
   resetValues(state) {
+    state.progressWidth = 0;
     if(state.currentTime.seconds > 0) {
       state.currentTime.seconds = 0;
     } 

@@ -51,29 +51,6 @@ const actions = {
       context.commit("updateLongBreakInterval", values[0]);
     }
   },
-  // resetValues(context) {
-  //   state.startCount = 0;
-  //   state.currentTime.seconds = 0;
-  //   state.progressSeconds = 0;
-  //   state.progressWidth = 0;
-  //   if(state.status === "longBreak") {
-  //     state.pomodoroCount = 0;
-  //     state.status = "study";
-  //     state.currentTime.minutes = state.timeSettings.studyInterval;
-  //     return null;
-  //   }
-  //   if (state.status === "study") {
-  //     state.pomodoroCount++;
-  //     if (state.pomodoroCount === 4) {
-  //       state.status = "longBreak";
-  //       state.currentTime.minutes = state.timeSettings.longBreakInterval;
-  //       return null;
-  //     }
-  //     state.status = "break";
-  //     state.currentTime.minutes = state.timeSettings.breakInterval;
-  //     return null
-  //   }
-  // }
 };
 
 export default actions;
