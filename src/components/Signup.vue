@@ -1,25 +1,31 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Sign Up Here!</h1>
-    <div class="container">
-      <form @submit.prevent="pushSignup()">
-        <div class="form-control">
-          <label for="name">name:</label>
-          <input type="text" id="name" name="name" v-model="name"/>
-        </div>
-        <div class="form-control">
-          <label for="email">email:</label>
-          <input type="email" id="email" name="email" v-model="email"/>
-        </div>
-        <div class="form-control">
-          <label for="password">password:</label>
-          <input type="password" id="password" name="password" v-model="password"/>
-        </div>
-        <base-button type="submit">submit</base-button>
-        <span><router-link to="/signin">Already a member? Signin instead!</router-link></span>
-      </form>
-    </div>
-    
+    <form @submit.prevent="pushSignup()">
+      <div class="form-control">
+        <label for="name">name:</label>
+        <input type="text" id="name" name="name" v-model="name" />
+      </div>
+      <div class="form-control">
+        <label for="email">email:</label>
+        <input type="email" id="email" name="email" v-model="email" />
+      </div>
+      <div class="form-control">
+        <label for="password">password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          v-model="password"
+        />
+      </div>
+      <base-button type="submit">submit</base-button>
+      <span
+        ><router-link to="/signin"
+          >Already a member? Signin instead!</router-link
+        ></span
+      >
+    </form>
   </div>
 </template>
 
@@ -29,25 +35,25 @@ import BaseButton from "./UI/BaseButton.vue";
 export default {
   data() {
     return {
-      name: '',
-      email: '',
-      password: ''
-    }
+      name: "",
+      email: "",
+      password: "",
+    };
   },
   methods: {
     pushSignup() {
-      fetch('http://localhost:3000/new-user', {
-        method: 'POST',
+      fetch("http://localhost:3000/sign-up", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: this.name,
           email: this.email,
-          password: this.password
-        })
-      })
-    }
+          password: this.password,
+        }),
+      });
+    },
   },
   components: {
     BaseButton,
@@ -73,17 +79,17 @@ input {
 }
 
 span {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .container {
-    width: 30%;
-    margin: auto;
-    text-align: left;
+  width: 30%;
+  margin: auto;
+  text-align: left !important;
 }
 </style>

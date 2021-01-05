@@ -1,24 +1,27 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Log In Here!</h1>
-    <div class="container">
-      <form action="">
-        <div class="form-control">
-          <label for="email">email:</label>
-          <input type="email" id="email" name="email" />
-        </div>
-        <div class="form-control">
-          <label for="password">password:</label>
-          <input type="password" id="password" name="password" />
-        </div>
-        <base-button>submit</base-button>
-        <span
-          ><router-link to="/signup"
-            >Not a member? Signup instead!</router-link
-          ></span
-        >
-      </form>
-    </div>
+    <form action="POST" @submit.prevent="pushSignIn()">
+      <div class="form-control">
+        <label for="email">email:</label>
+        <input type="email" id="email" name="email" v-model="email" />
+      </div>
+      <div class="form-control">
+        <label for="password">password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          v-model="password"
+        />
+      </div>
+      <base-button>submit</base-button>
+      <span
+        ><router-link to="/signup"
+          >Not a member? Signup instead!</router-link
+        ></span
+      >
+    </form>
   </div>
 </template>
 
@@ -26,6 +29,28 @@
 import BaseButton from "./UI/BaseButton.vue";
 
 export default {
+  data: () => {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    async pushSignIn() {
+      await fetch("http://localhost:3000/log-in", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.email,
+          password: this.password,
+        }),
+      });
+      // const returnData = await data.json();
+    },
+  },
   components: {
     BaseButton,
   },
@@ -61,6 +86,6 @@ a {
 .container {
   width: 30%;
   margin: auto;
-  text-align: left;
+  text-align: left !important;
 }
 </style>

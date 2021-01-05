@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Settings</h1>
     <div class="slider-container">
-      <label>study length: {{ studyInterval }}</label>
+      <label class="slider-label">study length: {{ studyInterval }}</label>
       <slider
         @slide="update"
         :val="studyInterval"
@@ -13,7 +13,7 @@
       ></slider>
     </div>
     <div class="slider-container">
-      <label>break length: {{ breakInterval }}</label>
+      <label class="slider-label">break length: {{ breakInterval }}</label>
       <slider
         @slide="update"
         :val="breakInterval"
@@ -24,7 +24,9 @@
       ></slider>
     </div>
     <div class="slider-container">
-      <label>long break length: {{ longBreakInterval }}</label>
+      <label class="slider-label"
+        >long break length: {{ longBreakInterval }}</label
+      >
       <slider
         @slide="update"
         :val="longBreakInterval"
@@ -34,8 +36,8 @@
         step="5"
       ></slider>
     </div>
-    <div class="slider-container">
-      <label for="goal">set daily goal</label>
+    <div class="input-container">
+      <label for="goal" class="goal-label">set daily goal:</label>
       <input type="number" min="0" max="24" id="goal" name="goal" value="0" />
     </div>
     <base-button @click="pushUpdate">update profile</base-button>
@@ -58,8 +60,8 @@ export default {
       this.$store.dispatch("updateSettings", values);
     },
     pushUpdate() {
-      this.$router.push('timer');
-    }
+      this.$router.push("timer");
+    },
   },
   components: {
     Slider,
@@ -74,14 +76,15 @@ h1 {
 }
 
 input {
-  width: 60%;
+  width: 10%;
   font-size: 28px;
   height: 30px;
-  text-align: center;
+  text-align: left;
   border-radius: 20px;
   border: none;
   outline: none;
-  padding-left: 15px;
+  padding-left: 12px;
+  margin-left: 20px;
 }
 
 label {
@@ -90,12 +93,18 @@ label {
 }
 
 .container {
-  width: 40%;
+  width: 30%;
   margin: auto;
   padding: 10px;
+  text-align: left;
+}
+
+.input-container label, .input-container input {
+  display: inline;
 }
 
 .slider-container,
+.input-container,
 input {
   margin-top: 10px;
 }
