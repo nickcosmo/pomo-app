@@ -39,7 +39,7 @@ div {
   -webkit-appearance: none;
   appearance: none;
   width: 60%;
-  height: 30px;
+  height: 16px;
   background: #efefef;
   border-radius: 20px;
   outline: none;

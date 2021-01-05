@@ -1,6 +1,5 @@
 <template>
   <div class="canvas-container">
-    
     <canvas id="progress-chart"></canvas>
   </div>
 </template>
@@ -29,10 +28,18 @@ export default {
               label: "Hours",
               borderColor: "#EFEFEF",
               data: [25, 10, 15, 26, 3, 15, 19],
+              pointRadius: "5",
+              pointHitRadius: "1",
             },
           ],
         },
         options: {
+          title: {
+            display: true,
+            fontSize: 20,
+            text: "Week at a glance",
+            fontColor: "#EFEFEF",
+          },
           legend: {
             display: true,
             position: "bottom",
@@ -45,7 +52,7 @@ export default {
               {
                 gridLines: {
                   display: true,
-                  color: "#222222",
+                  color: "#303030",
                   lineWidth: 5,
                 },
                 ticks: {
@@ -57,7 +64,7 @@ export default {
               {
                 gridLines: {
                   display: true,
-                  color: "#222222",
+                  color: "#303030",
                   lineWidth: 5,
                 },
                 ticks: {
@@ -80,8 +87,9 @@ export default {
 
 <style scoped>
 .canvas-container {
+  margin-top: 15px;
   display: inline-block;
   width: 800px;
-  height: 800px;
+  height: 400px;
 }
 </style>

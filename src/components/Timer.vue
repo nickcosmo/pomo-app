@@ -53,7 +53,7 @@ export default {
 
 .timer {
   font-size: 200px;
-  color: white;
+  color: #EFEFEF;
 }
 
 .bar-container {

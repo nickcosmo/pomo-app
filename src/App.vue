@@ -27,7 +27,7 @@ header {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   margin-top: 100px;
-  color: white;
-  background-color: black;
+  color: #EFEFEF;
+  background-color: #0F0F0F;
 }
 </style>
