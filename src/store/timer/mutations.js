@@ -10,18 +10,29 @@ const mutations = {
       }
     }
   },
+  
   intervalId: (state, interval) => (state.intId = interval),
+
   updateProgressSeconds: (state) => state.progressSeconds++,
+
   updateProgressWidth: (state, initMins) =>
     (state.progressWidth = (state.progressSeconds / (initMins * 60)) * 100),
+
   startTracker: (state) => state.startCount++,
+
   resetStartCount: (state) => state.startCount = 0,
+
   decreaseSeconds: (state, num) =>
     num ? (state.currentTime.seconds = num) : state.currentTime.seconds--,
+
   decreaseMinutes: (state) => state.currentTime.minutes--,
+
   updateStudyInterval: (state, newValue) => state.timeSettings.studyInterval = newValue,
+
   updateBreakInterval: (state, newValue) => state.timeSettings.breakInterval = newValue,
+
   updateLongBreakInterval: (state, newValue) => state.timeSettings.longBreakInterval = newValue,
+
   resetValues(state) {
     state.progressWidth = 0;
     if(state.currentTime.seconds > 0) {

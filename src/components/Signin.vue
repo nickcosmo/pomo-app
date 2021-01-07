@@ -36,20 +36,12 @@ export default {
     };
   },
   methods: {
-    async pushSignIn() {
-      await fetch("http://localhost:3000/log-in", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: this.email,
-          password: this.password,
-        }),
-      });
-      // const returnData = await data.json();
-    },
+    pushSignIn() {
+      this.$store.dispatch("pushSignIn", {
+        email: this.email,
+        password: this.password
+      })
+    }
   },
   components: {
     BaseButton,

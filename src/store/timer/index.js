@@ -2,8 +2,12 @@ import { createStore } from "vuex";
 import actions from "./actions";
 import mutations from "./mutations";
 import getters from "./getters";
+import authModule from "../auth/index.js";
 
 const store = createStore({
+  modules: {
+    authModule: authModule,
+  },
   state() {
     return {
       timeSettings: {

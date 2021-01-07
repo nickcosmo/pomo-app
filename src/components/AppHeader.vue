@@ -11,14 +11,20 @@
         <router-link to="/dashboard"><li>dashboard</li></router-link>
         <router-link to="/timer"><li>timer</li></router-link>
         <router-link to="/settings"><li>settings</li></router-link>
-        <a href="#"><li>log out</li></a>
+        <a href="#" @click="postLogOut()"><li>log out</li></a>
       </ul>
     </div>
   </nav>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    postLogOut() {
+      this.$store.dispatch("postLogOut");
+    }
+  }
+};
 </script>
 
 <style scoped>
