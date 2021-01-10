@@ -27,11 +27,7 @@ const mutations = {
 
   decreaseMinutes: (state) => state.currentTime.minutes--,
 
-  updateStudyInterval: (state, newValue) => state.timeSettings.studyInterval = newValue,
-
-  updateBreakInterval: (state, newValue) => state.timeSettings.breakInterval = newValue,
-
-  updateLongBreakInterval: (state, newValue) => state.timeSettings.longBreakInterval = newValue,
+  updateSettings: (state, newSettings) => state.timeSettings = newSettings,
 
   resetValues(state) {
     state.progressWidth = 0;

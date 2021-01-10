@@ -51,16 +51,29 @@ import { mapState } from "vuex";
 
 export default {
   computed: mapState({
-    studyInterval: (state) => state.timeSettings.studyInterval,
-    breakInterval: (state) => state.timeSettings.breakInterval,
-    longBreakInterval: (state) => state.timeSettings.longBreakInterval,
+    studyInterval: (state) => state.timerModule.timeSettings.studyInterval,
+    breakInterval: (state) => state.timerModule.timeSettings.breakInterval,
+    longBreakInterval: (state) => state.timerModule.timeSettings.longBreakInterval,
   }),
   methods: {
     update(values) {
-      this.$store.dispatch("updateSettings", values);
+      const pushValues = {
+        studyInterval: this.studyInterval,
+        breakInterval: this.breakInterval,
+        longBreakInterval: this.longBreakInterval
+      };
+      if(values[1] === "study") {
+        pushValues.studyInterval = values[0];
+      } else if (values[1] === "break") {
+        pushValues.breakInterval = values[0];
+      } else {
+        pushValues.longBreakInterval = values[0];
+      }
+      this.$store.dispatch("updateSettings", pushValues);
     },
     pushUpdate() {
-      this.$router.push("timer");
+      this.$store.dispatch("postSettings");
+      // this.$router.push("timer");
     },
   },
   components: {

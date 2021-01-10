@@ -42,14 +42,8 @@ const actions = {
   setTitle(context) {
     return (document.title = `${context.getters.displayMinutes}:${context.getters.displaySeconds}`);
   },
-  updateSettings(context, values) {
-    if (values[1] === "study") {
-      context.commit("updateStudyInterval", values[0]);
-    } else if (values[1] === "break") {
-      context.commit("updateBreakInterval", values[0]);
-    } else {
-      context.commit("updateLongBreakInterval", values[0]);
-    }
+  updateSettings(context, newSettings) {
+      context.commit("updateSettings", newSettings);
   },
 };
 

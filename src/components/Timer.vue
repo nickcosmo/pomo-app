@@ -21,12 +21,24 @@
 
 <script>
 import BaseButton from "./UI/BaseButton.vue";
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(['displayMinutes', 'displaySeconds']),
-    ...mapState(['progressSeconds', 'progressWidth', 'pomodoroCount']),
+    ...mapGetters([
+      "displayMinutes",
+      "displaySeconds",
+    ]),
+    // ...mapState([]),
+    progressSeconds() {
+      return this.$store.state.timerModule.progressSeconds;
+    },
+    progressWidth() {
+      return this.$store.state.timerModule.progressWidth;
+    },
+    pomodoroCount() {
+      return this.$store.state.timerModule.pomodoroCount;
+    },
   },
   methods: {
     startTimer() {
@@ -34,8 +46,7 @@ export default {
     },
     resetTimer() {
       this.$store.dispatch("resetTimer");
-    }
-
+    },
   },
   mounted: function () {
     this.$store.commit("initMinutes");
@@ -53,7 +64,7 @@ export default {
 
 .timer {
   font-size: 200px;
-  color: #EFEFEF;
+  color: #efefef;
 }
 
 .bar-container {

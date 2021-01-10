@@ -14,7 +14,9 @@ const actions = {
       body: JSON.stringify(signInData),
     });
     if (user) {
-      context.dispatch("setLogOut");
+      const userData = await user.json();
+      // context.dispatch("setLogOut"); --> for auto log out
+      context.dispatch("updateSettings", userData.settings);
       localStorage.setItem("loggedIn", true);
       context.commit("changeAuthState", true);
     }
@@ -36,7 +38,7 @@ const actions = {
     }
   },
   async setLogOut(context) {
-    if(context.state.logOutTimerId) {
+    if (context.state.logOutTimerId) {
       clearTimeout(context.state.logOutTimerId);
       clearInterval(interval);
       context.commit("resetLogOutTime");
@@ -70,6 +72,19 @@ const actions = {
       localStorage.removeItem("loggedIn");
       context.commit("changeAuthState", false);
     }
+  },
+  async postSettings(context) {
+    const settings = { ...context.rootState.timerModule.timeSettings };
+    const result = await fetch("http://localhost:3000/update-settings", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(settings),
+    });
+    let userData = result.json();
+    console.log(userData);
   },
 };
 

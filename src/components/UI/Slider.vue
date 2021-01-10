@@ -23,7 +23,8 @@ export default {
   },
   methods: {
     update() {
-      this.$emit("slide", [this.slide, this.length]);
+      const slideVal = parseInt(this.slide);
+      this.$emit("slide", [slideVal, this.length]);
     },
   },
   emits: ["slide"],

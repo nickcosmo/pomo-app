@@ -8,7 +8,7 @@ import Signup from "./components/Signup.vue";
 import Dashboard from "./components/Dashboard.vue";
 import Settings from "./components/Settings.vue";
 
-import store from "./store/timer/index.js";
+import store from "./store/index.js";
 
 const router = createRouter({
   history: createWebHistory(),
