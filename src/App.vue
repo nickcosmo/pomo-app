@@ -1,19 +1,61 @@
 <template>
-  <app-header></app-header>
   <div>
-    <router-view></router-view>
+    <modal v-if="showStatus" :type="modalType" @close="closeModal()">
+      <h2>{{ message }}</h2>
+    </modal>
+    <app-header></app-header>
+    <div class="main-body">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
 import AppHeader from "./components/AppHeader.vue";
+import Modal from "./components/UI/Modal.vue";
 
 export default {
+  data: () => {
+    return {
+      showStatus: false,
+      message: '',
+      modalType: ''
+    };
+  },
+  methods: {
+    closeModal(value) {
+      this.showStatus = value;
+    }
+  },
   created() {
-    this.$store.dispatch("tryLogIn");
+    // for auto login
+    // this.$store.dispatch("tryLogIn");
+  },
+  computed: {
+    logOutTime() {
+      return this.$store.getters.logOutTime;
+    },
+    logInStatus() {
+      return this.$store.getters.logState;
+    }
   },
   components: {
     AppHeader,
+    Modal,
+  },
+  watch: {
+    logOutTime: function() {
+      if (this.logOutTime === 5000) {
+        this.showStatus = true;
+        this.message = "Auto-Logout in 5 seconds.  Are you still Studying?";
+        this.modalType = "logout";
+      }
+    },
+    logInStatus: function() {
+      if(this.logInStatus === false) {
+        this.showStatus = false;
+      }
+    }
   },
 };
 </script>
@@ -24,13 +66,13 @@ html {
   margin: none;
 }
 
-div,
+.main-body,
 header {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   margin-top: 100px;
-  color: #EFEFEF;
-  background-color: #0F0F0F;
+  color: #efefef;
+  background-color: #0f0f0f;
 }
 </style>
