@@ -3,7 +3,7 @@ import mutations from './mutations.js';
 import actions from './actions.js';
 
 const dashboard = {
-  store() {
+  state() {
     return {
       dailyGoal: 0,
       totalHours: 0,

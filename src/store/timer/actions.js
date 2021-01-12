@@ -18,14 +18,12 @@ const actions = {
         ) {
           if (
             context.state.status === "study" &&
-            context.rootState.authModule.isLoggedin === true
+            localStorage.getItem("loggedIn") === "true"
           ) {
-            console.log("made it");
             context.dispatch("updateHours");
           }
           context.dispatch("resetTimer");
           context.dispatch("setTitle");
-
           return null;
         }
         if (context.state.currentTime.minutes >= 0) {

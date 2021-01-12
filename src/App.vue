@@ -28,8 +28,7 @@ export default {
     }
   },
   created() {
-    // for auto login
-    // this.$store.dispatch("tryLogIn");
+    // this.$store.dispatch("tryLogIn"); --> for auto login
   },
   computed: {
     logOutTime() {

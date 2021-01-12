@@ -8,6 +8,7 @@
 import Chart from "chart.js";
 
 export default {
+  props: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "goal"],
   methods: {
     createChart(chartId) {
       const ctx = document.getElementById(chartId);
@@ -25,12 +26,19 @@ export default {
           ],
           datasets: [
             {
-              label: "Hours",
-              borderColor: "#EFEFEF",
-              data: [25, 10, 15, 26, 3, 15, 19],
+              label: "Goal",
+              borderColor: "#00f6f6",
+              data: [this.goal, this.goal, this.goal, this.goal, this.goal, this.goal, this.goal],
               pointRadius: "5",
               pointHitRadius: "1",
             },
+            {
+              label: "Hours",
+              borderColor: "#EFEFEF",
+              data: [this.monday, this.tuesday, this.wednesday, this.thursday, this.friday, this.saturday, this.sunday],
+              pointRadius: "5",
+              pointHitRadius: "1",
+            }
           ],
         },
         options: {
