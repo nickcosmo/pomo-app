@@ -16,7 +16,17 @@ const actions = {
           context.state.currentTime.seconds === 0 &&
           context.state.currentTime.minutes === 0
         ) {
+          if (
+            context.state.status === "study" &&
+            context.rootState.authModule.isLoggedin === true
+          ) {
+            console.log("made it");
+            context.dispatch("updateHours");
+          }
           context.dispatch("resetTimer");
+          context.dispatch("setTitle");
+
+          return null;
         }
         if (context.state.currentTime.minutes >= 0) {
           if (context.state.currentTime.seconds === 0) {
@@ -34,16 +44,16 @@ const actions = {
     }
   },
   resetTimer(context) {
-      clearInterval(context.state.intId);
-      context.commit("resetStartCount");
-      context.commit("resetValues");
-      context.dispatch("setTitle");
+    clearInterval(context.state.intId);
+    context.commit("resetStartCount");
+    context.commit("resetValues");
+    context.dispatch("setTitle");
   },
   setTitle(context) {
     return (document.title = `${context.getters.displayMinutes}:${context.getters.displaySeconds}`);
   },
   updateSettings(context, newSettings) {
-      context.commit("updateSettings", newSettings);
+    context.commit("updateSettings", newSettings);
   },
 };
 

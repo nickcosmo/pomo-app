@@ -29,7 +29,6 @@ export default {
       "displayMinutes",
       "displaySeconds",
     ]),
-    // ...mapState([]),
     progressSeconds() {
       return this.$store.state.timerModule.progressSeconds;
     },
@@ -48,7 +47,7 @@ export default {
       this.$store.dispatch("resetTimer");
     },
   },
-  mounted: function () {
+  mounted() {
     this.$store.commit("initMinutes");
   },
   components: {

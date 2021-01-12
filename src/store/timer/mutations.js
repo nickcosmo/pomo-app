@@ -31,9 +31,10 @@ const mutations = {
 
   resetValues(state) {
     state.progressWidth = 0;
+    state.progressSeconds = 0;
     if(state.currentTime.seconds > 0) {
       state.currentTime.seconds = 0;
-    } 
+    }
     if(state.status === "longBreak") {
       state.pomodoroCount = 0;
       state.status = "study";

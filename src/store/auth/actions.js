@@ -75,7 +75,7 @@ const actions = {
   },
   async postSettings(context) {
     const settings = { ...context.rootState.timerModule.timeSettings };
-    const result = await fetch("http://localhost:3000/update-settings", {
+    await fetch("http://localhost:3000/update-settings", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -83,8 +83,8 @@ const actions = {
       },
       body: JSON.stringify(settings),
     });
-    let userData = result.json();
-    console.log(userData);
+    // let userData = result.json();
+    // console.log(userData);
   },
 };
 

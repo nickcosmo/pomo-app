@@ -7,7 +7,7 @@
         @slide="update"
         :val="studyInterval"
         length="study"
-        min="15"
+        min="1"
         max="45"
         step="5"
       ></slider>
@@ -73,7 +73,7 @@ export default {
     },
     pushUpdate() {
       this.$store.dispatch("postSettings");
-      // this.$router.push("timer");
+      this.$router.push("timer");
     },
   },
   components: {
