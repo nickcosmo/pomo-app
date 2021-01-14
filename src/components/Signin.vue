@@ -1,10 +1,21 @@
 <template>
   <div class="container">
     <h1>Log In Here!</h1>
-    <form action="POST" @submit.prevent="pushSignIn()">
+    <form action="POST" @submit.prevent="signInVal()">
       <div class="form-control">
         <label for="email">email:</label>
-        <input type="email" id="email" name="email" v-model="email" />
+        <input
+          type="text"
+          id="email"
+          name="email"
+          v-model="values.email"
+          @blur="validate('email')"
+          :style="[
+            errors.email
+              ? { 'border-color': '#ff6961', 'border-width': '2px' }
+              : {},
+          ]"
+        />
       </div>
       <div class="form-control">
         <label for="password">password:</label>
@@ -12,7 +23,13 @@
           type="password"
           id="password"
           name="password"
-          v-model="password"
+          v-model="values.password"
+          @blur="validate('password')"
+          :style="[
+            errors.password
+              ? { 'border-color': '#ff6961', 'border-width': '2px' }
+              : {},
+          ]"
         />
       </div>
       <base-button>submit</base-button>
@@ -22,26 +39,64 @@
         ></span
       >
     </form>
+    <div class="errorMessage" v-if="Object.values(errors).length > 0">
+      <ul>
+        <li v-if="errors.email">{{ errors.email }}</li>
+        <li v-if="errors.password">{{ errors.password }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 import BaseButton from "./UI/BaseButton.vue";
+import * as yup from "yup";
 
 export default {
-  data: () => {
+  data() {
+    const signInFormSchema = yup.object().shape({
+      email: yup.string().required().email(),
+      password: yup.string().required(),
+    });
     return {
-      email: "",
-      password: "",
+      values: {
+        email: "",
+        password: "",
+      },
+      errors: {},
+      signInFormSchema,
     };
   },
   methods: {
-    pushSignIn() {
+    async signInVal() {
+      this.signInFormSchema
+        .validate(this.values, { abortEarly: false })
+        .then(() => {
+          this.pushSignIn();
+        })
+        .catch((err) => {
+          console.log("err =>", err);
+          err.inner.forEach((error) => {
+            this.errors[error.path] = error.message;
+          });
+        });
+    },
+    validate(field) {
+      this.signInFormSchema
+        .validateAt(field, this.values)
+        .then(() => {
+          delete this.errors[field];
+        })
+        .catch((err) => {
+          this.errors[field] = err.message;
+        });
+    },
+    async pushSignIn() {
       this.$store.dispatch("pushSignIn", {
-        email: this.email,
-        password: this.password
-      })
-    }
+        email: this.values.email,
+        password: this.values.password,
+      });
+    },
   },
   components: {
     BaseButton,
@@ -63,7 +118,7 @@ input {
 
 button,
 input {
-  margin: 5px 0px;
+  margin: 10px 0px;
 }
 
 span {
@@ -79,5 +134,9 @@ a {
   width: 30%;
   margin: auto;
   text-align: left !important;
+}
+
+.errorMessage {
+  color: #ff6961;
 }
 </style>
