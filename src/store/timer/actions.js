@@ -51,7 +51,12 @@ const actions = {
     return (document.title = `${context.getters.displayMinutes}:${context.getters.displaySeconds}`);
   },
   updateSettings(context, newSettings) {
-    context.commit("updateSettings", newSettings);
+    const settings = {
+      studyInterval: newSettings.studyInterval,
+      breakInterval: newSettings.breakInterval,
+      longBreakInterval: newSettings.longBreakInterval
+    }
+    context.commit("updateSettings", settings);
   },
 };
 

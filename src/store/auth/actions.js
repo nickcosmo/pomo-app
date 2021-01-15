@@ -19,6 +19,7 @@ const actions = {
       context.dispatch("updateSettings", userData.settings);
       localStorage.setItem("loggedIn", true);
       context.commit("changeAuthState", true);
+      context.commit("updateDailyGoal", userData.settings.dailyGoal);
     }
   },
   async tryLogIn(context) {
@@ -73,8 +74,9 @@ const actions = {
       context.commit("changeAuthState", false);
     }
   },
-  async postSettings(context) {
-    const settings = { ...context.rootState.timerModule.timeSettings };
+  async postSettings(context, dailyGoal) {
+    const settings = { ...context.rootState.timerModule.timeSettings, dailyGoal: dailyGoal };
+    console.log(settings);
     await fetch("http://localhost:3000/update-settings", {
       method: "POST",
       credentials: "include",

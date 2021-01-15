@@ -38,9 +38,18 @@
     </div>
     <div class="input-container">
       <label for="goal" class="goal-label">set daily goal:</label>
-      <input type="number" min="0" max="24" id="goal" name="goal" value="0" />
+      <input
+        class="goalInput"
+        type="number"
+        min="0"
+        max="24"
+        id="goal"
+        name="goal"
+        v-model="dailyGoal"
+        onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+      />
     </div>
-    <base-button @click="pushUpdate">update profile</base-button>
+    <base-button @click="pushUpdate">save your settings</base-button>
   </div>
 </template>
 
@@ -50,19 +59,25 @@ import BaseButton from "@/components/UI/BaseButton.vue";
 import { mapState } from "vuex";
 
 export default {
+  data() {
+    return {
+      dailyGoal: 0,
+    }
+  },
   computed: mapState({
     studyInterval: (state) => state.timerModule.timeSettings.studyInterval,
     breakInterval: (state) => state.timerModule.timeSettings.breakInterval,
-    longBreakInterval: (state) => state.timerModule.timeSettings.longBreakInterval,
+    longBreakInterval: (state) =>
+      state.timerModule.timeSettings.longBreakInterval,
   }),
   methods: {
     update(values) {
       const pushValues = {
         studyInterval: this.studyInterval,
         breakInterval: this.breakInterval,
-        longBreakInterval: this.longBreakInterval
+        longBreakInterval: this.longBreakInterval,
       };
-      if(values[1] === "study") {
+      if (values[1] === "study") {
         pushValues.studyInterval = values[0];
       } else if (values[1] === "break") {
         pushValues.breakInterval = values[0];
@@ -72,7 +87,8 @@ export default {
       this.$store.dispatch("updateSettings", pushValues);
     },
     pushUpdate() {
-      this.$store.dispatch("postSettings");
+      const goal = parseInt(this.dailyGoal);
+      this.$store.dispatch("postSettings", goal);
       this.$router.push("timer");
     },
   },
@@ -96,8 +112,8 @@ input {
   border-radius: 20px;
   border: none;
   outline: none;
-  padding-left: 12px;
-  margin-left: 20px;
+  padding-left: 20px;
+  margin: 10px;
 }
 
 label {
@@ -112,17 +128,29 @@ label {
   text-align: left;
 }
 
-.input-container label, .input-container input {
+.input-container label,
+.input-container input {
   display: inline;
 }
 
 .slider-container,
-.input-container,
-input {
-  margin-top: 10px;
+.input-container {
+  margin: 10px 0px;
 }
 
 button {
-  margin-top: 10px;
+  margin-top: 10px 0px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.goalInput::-webkit-outer-spin-button,
+.goalInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.goalInput[type="number"] {
+  -moz-appearance: textfield;
 }
 </style>

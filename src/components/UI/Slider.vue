@@ -33,7 +33,7 @@ export default {
 
 <style scoped>
 div {
-  margin-top: 10px;
+  margin: 10px 0px;
 }
 
 .slider {
@@ -50,7 +50,7 @@ div {
   -webkit-appearance: none;
   appearance: none;
   width: 15px;
-  height: 40px;
+  height: 24px;
   border-radius: 5px;
   background: #00f6f6;
   cursor: pointer;
