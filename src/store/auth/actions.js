@@ -5,7 +5,7 @@ let interval;
 
 const actions = {
   async pushSignIn(context, signInData) {
-    const user = await fetch("http://localhost:3000/log-in", {
+    const result = await fetch("http://localhost:3000/log-in", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -13,14 +13,16 @@ const actions = {
       },
       body: JSON.stringify(signInData),
     });
-    if (user) {
-      const userData = await user.json();
+    const resultData = await result.json();
+    if (result.status === 200) {
       // context.dispatch("setLogOut"); --> for auto log out
-      context.dispatch("updateSettings", userData.settings);
+      context.dispatch("updateSettings", resultData.settings);
       localStorage.setItem("loggedIn", true);
       context.commit("changeAuthState", true);
-      context.commit("updateDailyGoal", userData.settings.dailyGoal);
+      context.commit("updateDailyGoal", resultData.settings.dailyGoal);
     }
+    const response = { status: result.status, ...resultData };
+    return response;
   },
   async tryLogIn(context) {
     if (localStorage.getItem("loggedIn")) {
@@ -75,7 +77,10 @@ const actions = {
     }
   },
   async postSettings(context, dailyGoal) {
-    const settings = { ...context.rootState.timerModule.timeSettings, dailyGoal: dailyGoal };
+    const settings = {
+      ...context.rootState.timerModule.timeSettings,
+      dailyGoal: dailyGoal,
+    };
     console.log(settings);
     await fetch("http://localhost:3000/update-settings", {
       method: "POST",

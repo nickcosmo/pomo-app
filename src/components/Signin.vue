@@ -1,5 +1,14 @@
 <template>
   <div class="container">
+    <modal
+      v-if="modalStatus"
+      :data="errorArray"
+      :type="modalType"
+      nextRoute="timer"
+      @close="closeModal()"
+    >
+      <h2>{{ modalMessage }}</h2>
+    </modal>
     <h1>Log In Here!</h1>
     <form action="POST" @submit.prevent="signInVal()">
       <div class="form-control">
@@ -50,6 +59,7 @@
 
 <script>
 import BaseButton from "./UI/BaseButton.vue";
+import Modal from "./UI/Modal.vue";
 import * as yup from "yup";
 
 export default {
@@ -59,6 +69,10 @@ export default {
       password: yup.string().required(),
     });
     return {
+      modalStatus: false,
+      modalMessage: "",
+      modalType: null,
+      errorArray: [],
       values: {
         email: "",
         password: "",
@@ -92,14 +106,36 @@ export default {
         });
     },
     async pushSignIn() {
-      this.$store.dispatch("pushSignIn", {
-        email: this.values.email,
-        password: this.values.password,
-      });
+      try {
+        const result = await this.$store.dispatch("pushSignIn", {
+          email: this.values.email,
+          password: this.values.password,
+        });
+        if (result.status !== 200) {
+          const err = new Error(result.message);
+          if (result.data) {
+            const messageArray = result.data.map((data) => data.msg);
+            err.data = messageArray;
+          }
+          throw err;
+        } else {
+          this.modalMessage = `Hello, ${result.name}! Welcome Back!`;
+          this.modalType = "auth";
+          this.modalStatus = true;
+        }
+      } catch (err) {
+        this.modalMessage = err.message;
+        this.errorArray = err.data;
+        this.modalType = "error";
+        this.modalStatus = true;
+      }
+    },
+    closeModal(value) {
+      this.modalStatus = value;
     },
   },
   components: {
-    BaseButton,
+    BaseButton, Modal
   },
 };
 </script>

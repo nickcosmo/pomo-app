@@ -1,5 +1,14 @@
 <template>
   <div class="container">
+    <modal
+      v-if="modalStatus"
+      :data="errorArray"
+      :type="modalType"
+      nextRoute="signin"
+      @close="closeModal()"
+    >
+      <h2>{{ modalMessage }}</h2>
+    </modal>
     <h1>Sign Up Here!</h1>
     <form @submit.prevent="signUpVal()">
       <div class="form-control">
@@ -82,6 +91,7 @@
 
 <script>
 import BaseButton from "./UI/BaseButton.vue";
+import Modal from "./UI/Modal.vue";
 import * as yup from "yup";
 
 export default {
@@ -98,6 +108,10 @@ export default {
         }),
     });
     return {
+      modalStatus: false,
+      modalMessage: "",
+      modalType: null,
+      errorArray: [],
       values: {
         name: "",
         email: "",
@@ -113,11 +127,9 @@ export default {
       this.signUpFormSchema
         .validate(this.values, { abortEarly: false })
         .then(() => {
-          console.log("success");
-          this.pushSignup();
+          return this.pushSignUp();
         })
         .catch((err) => {
-          console.log("err =>", err);
           err.inner.forEach((error) => {
             this.errors[error.path] = error.message;
           });
@@ -131,25 +143,49 @@ export default {
         })
         .catch((err) => {
           this.errors[field] = err.message;
-          // console.log(this.errors);
         });
     },
-    async pushSignup() {
-      await fetch("http://localhost:3000/sign-up", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: this.values.name,
-          email: this.values.email,
-          password: this.values.password,
-        }),
-      });
+    async pushSignUp() {
+      try {
+        const result = await fetch("http://localhost:3000/sign-up", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: this.values.name,
+            email: this.values.email,
+            password: this.values.password,
+            verifyPassword: this.values.verifyPassword,
+          }),
+        });
+        const resultJSON = await result.json();
+        if (result.status !== 200) {
+          const err = new Error(resultJSON.message);
+          if (resultJSON.data) {
+            const messageArray = resultJSON.data.map((data) => data.msg);
+            err.data = messageArray;
+          }
+          throw err;
+        } else {
+          this.modalMessage = `Thanks for signing up, ${resultJSON.name}! Your account was created successfully!`;
+          this.modalType = "auth";
+          this.modalStatus = true;
+        }
+      } catch (err) {
+        this.modalMessage = err.message;
+        this.errorArray = err.data;
+        this.modalType = "error";
+        this.modalStatus = true;
+      }
+    },
+    closeModal(value) {
+      this.modalStatus = value;
     },
   },
   components: {
     BaseButton,
+    Modal,
   },
 };
 </script>

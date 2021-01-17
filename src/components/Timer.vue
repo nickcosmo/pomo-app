@@ -91,19 +91,4 @@ export default {
   background-color: #00f3f3;
   animation: fill 25s linear infinite;
 }
-
-/* .container {
-  animation: enter 0.5s linear;
-}
-
-@keyframes enter {
-  0% {
-    transform: translateY(50px);
-    opacity: 0%;
-  }
-  100% {
-    transform: translateY(0px);
-    opacity: 100%;
-  }
-} */
 </style>
