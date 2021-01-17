@@ -6,12 +6,12 @@
     </router-link></div>
     <div>
       <ul>
-        <router-link to="/signin"><li>log in</li></router-link>
-        <router-link to="/signup"><li>sign up</li></router-link>
+        <router-link to="/signin" v-if="!isLoggedIn"><li>log in</li></router-link>
+        <router-link to="/signup" v-if="!isLoggedIn"><li>sign up</li></router-link>
         <router-link to="/dashboard"><li>dashboard</li></router-link>
         <router-link to="/timer"><li>timer</li></router-link>
         <router-link to="/settings"><li>settings</li></router-link>
-        <a href="#" @click="postLogOut()"><li>log out</li></a>
+        <a href="#" @click="postLogOut()" v-if="isLoggedIn"><li>log out</li></a>
       </ul>
     </div>
   </nav>
@@ -19,6 +19,14 @@
 
 <script>
 export default {
+  computed: {
+    isLoggedIn() {
+      if(this.$store.state.authModule.isLoggedIn) {
+        return true;
+      }
+      return false;
+    }
+  },
   methods: {
     postLogOut() {
       this.$store.dispatch("postLogOut");

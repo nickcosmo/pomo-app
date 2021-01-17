@@ -81,7 +81,6 @@ const actions = {
       ...context.rootState.timerModule.timeSettings,
       dailyGoal: dailyGoal,
     };
-    console.log(settings);
     await fetch("http://localhost:3000/update-settings", {
       method: "POST",
       credentials: "include",

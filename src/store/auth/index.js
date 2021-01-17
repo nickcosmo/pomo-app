@@ -6,7 +6,7 @@ const authModule = {
     // namespaced: true,
     state: () => {
         return {
-            isLoggedin: false,
+            isLoggedIn: false,
             logOutTime: 10000,
             logOutTimerId: null
         }

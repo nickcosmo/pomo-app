@@ -8,7 +8,7 @@ const dashboard = {
       dailyGoal: 0,
       totalHours: 0,
       todaysHours: 0,
-      weeklyHours: 0,
+      weekHours: 0,
       week: {
         monday: 0,
         tuesday: 0,

@@ -49,7 +49,7 @@
         onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
       />
     </div>
-    <base-button @click="pushUpdate">save your settings</base-button>
+    <base-button @click="pushUpdate" v-if="isLoggedIn">save your settings</base-button>
   </div>
 </template>
 
@@ -69,6 +69,12 @@ export default {
     breakInterval: (state) => state.timerModule.timeSettings.breakInterval,
     longBreakInterval: (state) =>
       state.timerModule.timeSettings.longBreakInterval,
+    isLoggedIn() {
+      if(this.$store.state.authModule.isLoggedIn) {
+        return true;
+      }
+      return false;
+    }
   }),
   methods: {
     update(values) {

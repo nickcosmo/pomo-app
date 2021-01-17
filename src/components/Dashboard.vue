@@ -29,7 +29,7 @@ export default {
       todaysHours: null,
       weekHours: null,
       totalHours: null,
-      dailyGoal: 0,
+      // dailyGoal: 0,
       week: {
         monday: 0,
         tuesday: 0,
@@ -41,6 +41,11 @@ export default {
       },
     };
   },
+  computed: {
+    dailyGoal() {
+      return this.$store.state.dashModule.dailyGoal;
+    }
+  },
   async created() {
     const userHours = await fetch("http://localhost:3000/get-hours", {
       method: "GET",
@@ -51,12 +56,20 @@ export default {
     });
 
     const hourData = await userHours.json();
-    this.$store.commit("updateHours", hourData);
-    this.dailyGoal = hourData.dailyGoal;
+    // this.dailyGoal = hourData.dailyGoal;
     this.todaysHours = hourData.todaysHours;
     this.weekHours = hourData.weekHours;
     this.totalHours = hourData.totalHours;
     this.week = { ...hourData.week };
+    const { dailyGoal, totalHours, todaysHours, weekHours, week } = hourData;
+    const progressUpdate = {
+      dailyGoal: dailyGoal,
+      totalHours: totalHours,
+      todaysHours: todaysHours,
+      weekHours: weekHours,
+      week: week
+    }
+    this.$store.commit("updateHours", progressUpdate);
     // console.log(hourData);
     // console.log(this.$store.state.dashModule);
   },
