@@ -44,34 +44,36 @@ export default {
   computed: {
     dailyGoal() {
       return this.$store.state.dashModule.dailyGoal;
-    }
+    },
   },
   async created() {
-    const userHours = await fetch("http://localhost:3000/get-hours", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    if (this.$store.state.authModule.isLoggedIn) {
+      const userHours = await fetch("http://localhost:3000/get-hours", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    const hourData = await userHours.json();
-    // this.dailyGoal = hourData.dailyGoal;
-    this.todaysHours = hourData.todaysHours;
-    this.weekHours = hourData.weekHours;
-    this.totalHours = hourData.totalHours;
-    this.week = { ...hourData.week };
-    const { dailyGoal, totalHours, todaysHours, weekHours, week } = hourData;
-    const progressUpdate = {
-      dailyGoal: dailyGoal,
-      totalHours: totalHours,
-      todaysHours: todaysHours,
-      weekHours: weekHours,
-      week: week
+      const hourData = await userHours.json();
+      // this.dailyGoal = hourData.dailyGoal;
+      this.todaysHours = hourData.todaysHours;
+      this.weekHours = hourData.weekHours;
+      this.totalHours = hourData.totalHours;
+      this.week = { ...hourData.week };
+      const { dailyGoal, totalHours, todaysHours, weekHours, week } = hourData;
+      const progressUpdate = {
+        dailyGoal: dailyGoal,
+        totalHours: totalHours,
+        todaysHours: todaysHours,
+        weekHours: weekHours,
+        week: week,
+      };
+      this.$store.commit("updateHours", progressUpdate);
+      // console.log(hourData);
+      // console.log(this.$store.state.dashModule);
     }
-    this.$store.commit("updateHours", progressUpdate);
-    // console.log(hourData);
-    // console.log(this.$store.state.dashModule);
   },
   components: {
     Graph,
