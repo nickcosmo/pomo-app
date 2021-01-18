@@ -15,6 +15,7 @@ const timerModule = {
         minutes: 0,
         seconds: 0,
       },
+      pause: false,
       status: "study",
       startCount: 0,
       intId: null,

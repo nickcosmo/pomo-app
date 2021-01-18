@@ -10,6 +10,8 @@ const mutations = {
       }
     }
   },
+
+  pauseTimer: (state) => state.pause ? state.pause = false : state.pause = true,
   
   intervalId: (state, interval) => (state.intId = interval),
 

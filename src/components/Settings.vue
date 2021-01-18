@@ -7,7 +7,7 @@
         @slide="update"
         :val="studyInterval"
         length="study"
-        min="1"
+        min="15"
         max="45"
         step="5"
       ></slider>
@@ -36,7 +36,7 @@
         step="5"
       ></slider>
     </div>
-    <div class="input-container">
+    <div class="input-container" v-if="isLoggedIn">
       <label for="goal" class="goal-label">set daily goal:</label>
       <input
         class="goalInput"
@@ -111,14 +111,14 @@ h1 {
 }
 
 input {
-  width: 10%;
+  width: 60px;
   font-size: 28px;
   height: 30px;
-  text-align: left;
+  text-align: center;
   border-radius: 20px;
   border: none;
   outline: none;
-  padding-left: 20px;
+  /* padding-left: 20px; */
   margin: 10px;
 }
 
