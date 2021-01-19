@@ -1,6 +1,4 @@
-import getters from './getters.js';
-import mutations from './mutations.js';
-import actions from './actions.js';
+import actions from "./actions.js";
 
 const dashboard = {
   state() {
@@ -20,9 +18,17 @@ const dashboard = {
       },
     };
   },
-  getters: getters,
-  mutations: mutations,
-  actions: actions
+  getters: {},
+  mutations: {
+    updateDailyGoal: (state, newGoal) => (state.dailyGoal = newGoal),
+    updateHours: (state, progress) => {
+      state = {
+        dailyGoal: state.dailyGoal,
+        ...progress,
+      };
+    },
+  },
+  actions: actions,
 };
 
 export default dashboard;

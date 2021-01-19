@@ -19,6 +19,7 @@ const router = createRouter({
     { path: "/signup", component: Signup },
     { path: "/dashboard", component: Dashboard },
     { path: "/settings", component: Settings },
+    // { path: "*", redirect: "/timer" },
   ],
 });
 

@@ -1,4 +1,5 @@
 <template>
+  <loader :loading="loading"></loader>
   <nav>
     <div><router-link to="/timer">
       <h1 class="title">POMO.</h1>
@@ -18,7 +19,14 @@
 </template>
 
 <script>
+import Loader from './UI/Loader.vue';
+
 export default {
+  data() {
+    return {
+      loading: false,
+    }
+  },
   computed: {
     isLoggedIn() {
       if(this.$store.state.authModule.isLoggedIn) {
@@ -28,9 +36,15 @@ export default {
     }
   },
   methods: {
-    postLogOut() {
-      this.$store.dispatch("postLogOut");
+    async postLogOut() {
+      this.loading = true;
+      await this.$store.dispatch("postLogOut");
+      this.loading = false;
+      this.$router.push("timer");
     }
+  },
+  components: {
+    Loader
   }
 };
 </script>

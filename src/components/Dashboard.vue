@@ -1,4 +1,6 @@
 <template>
+  <loader :loading="loading"></loader>
+
   <div class="container">
     <div class="data">
       <h1>Dashboard</h1>
@@ -22,10 +24,12 @@
 
 <script>
 import Graph from "@/components/Graph.vue";
+import Loader from "./UI/Loader.vue";
 
 export default {
   data() {
     return {
+      loading: false,
       todaysHours: null,
       weekHours: null,
       totalHours: null,
@@ -48,35 +52,49 @@ export default {
   },
   async created() {
     if (this.$store.state.authModule.isLoggedIn) {
-      const userHours = await fetch("http://localhost:3000/get-hours", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        // this.loading = true;
+        const userHours = await fetch("http://localhost:3000/get-hours", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-      const hourData = await userHours.json();
-      // this.dailyGoal = hourData.dailyGoal;
-      this.todaysHours = hourData.todaysHours;
-      this.weekHours = hourData.weekHours;
-      this.totalHours = hourData.totalHours;
-      this.week = { ...hourData.week };
-      const { dailyGoal, totalHours, todaysHours, weekHours, week } = hourData;
-      const progressUpdate = {
-        dailyGoal: dailyGoal,
-        totalHours: totalHours,
-        todaysHours: todaysHours,
-        weekHours: weekHours,
-        week: week,
-      };
-      this.$store.commit("updateHours", progressUpdate);
-      // console.log(hourData);
-      // console.log(this.$store.state.dashModule);
+        const hourData = await userHours.json();
+        // this.dailyGoal = hourData.dailyGoal;
+        this.todaysHours = hourData.todaysHours;
+        this.weekHours = hourData.weekHours;
+        this.totalHours = hourData.totalHours;
+        this.week = { ...hourData.week };
+        const {
+          dailyGoal,
+          totalHours,
+          todaysHours,
+          weekHours,
+          week,
+        } = hourData;
+        const progressUpdate = {
+          dailyGoal: dailyGoal,
+          totalHours: totalHours,
+          todaysHours: todaysHours,
+          weekHours: weekHours,
+          week: week,
+        };
+        this.$store.commit("updateHours", progressUpdate);
+        // console.log(hourData);
+        // console.log(this.$store.state.dashModule);
+        this.loading = false;
+      } catch (err) {
+        this.loading = false;
+        console.log(err);
+      }
     }
   },
   components: {
     Graph,
+    Loader,
   },
 };
 </script>

@@ -4,7 +4,8 @@
       <h2>{{ message }}</h2>
     </modal>
     <app-header></app-header>
-    <div class="main-body">
+    <loader v-if="loading"></loader>
+    <div class="main-body" v-if="!loading">
       <router-view></router-view>
     </div>
   </div>
@@ -13,10 +14,12 @@
 <script>
 import AppHeader from "./components/AppHeader.vue";
 import Modal from "./components/UI/Modal.vue";
+import Loader from "./components/UI/Loader.vue";
 
 export default {
   data: () => {
     return {
+      loading: false,
       showStatus: false,
       message: '',
       modalType: ''
@@ -41,6 +44,7 @@ export default {
   components: {
     AppHeader,
     Modal,
+    Loader
   },
   watch: {
     logOutTime: function() {

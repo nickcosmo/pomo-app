@@ -8,7 +8,10 @@ const authModule = {
         return {
             isLoggedIn: false,
             logOutTime: 10000,
-            logOutTimerId: null
+            logOutTimerId: null,
+            newSignIn: false,
+            newSignUp: false,
+            name: null
         }
     },
     actions: actions,

@@ -1,14 +1,15 @@
 <template>
   <div class="container">
     <modal
-      v-if="modalStatus"
+      :modalStatus="modalStatus"
       :data="errorArray"
       :type="modalType"
       nextRoute="timer"
       @close="closeModal()"
-    >
-      <h2>{{ modalMessage }}</h2>
-    </modal>
+    ></modal>
+
+    <loader :loading="loading"></loader>
+
     <h1>Log In Here!</h1>
     <form action="POST" @submit.prevent="signInVal()">
       <div class="form-control">
@@ -59,6 +60,7 @@
 
 <script>
 import BaseButton from "./UI/BaseButton.vue";
+import Loader from "./UI/Loader.vue";
 import Modal from "./UI/Modal.vue";
 import * as yup from "yup";
 
@@ -72,6 +74,7 @@ export default {
       modalStatus: false,
       modalMessage: "",
       modalType: null,
+      loading: false,
       errorArray: [],
       values: {
         email: "",
@@ -107,10 +110,12 @@ export default {
     },
     async pushSignIn() {
       try {
+        this.loading = true;
         const result = await this.$store.dispatch("pushSignIn", {
           email: this.values.email,
           password: this.values.password,
         });
+        this.loading = false;
         if (result.status !== 200) {
           const err = new Error(result.message);
           if (result.data) {
@@ -119,9 +124,8 @@ export default {
           }
           throw err;
         } else {
-          this.modalMessage = `Hello, ${result.name}! Welcome Back!`;
-          this.modalType = "auth";
-          this.modalStatus = true;
+          this.$store.commit("newSignIn", result.name);
+          this.$router.push("timer");
         }
       } catch (err) {
         this.modalMessage = err.message;
@@ -135,7 +139,9 @@ export default {
     },
   },
   components: {
-    BaseButton, Modal
+    BaseButton,
+    Loader,
+    Modal,
   },
 };
 </script>
@@ -143,6 +149,10 @@ export default {
 <style scoped>
 h1 {
   font-size: 60px;
+}
+
+h2 {
+  font-size: 45px;
 }
 
 label,
