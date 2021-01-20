@@ -1,6 +1,4 @@
 <template>
-  <loader :loading="loading"></loader>
-
   <div class="container">
     <h1>Settings</h1>
     <div class="slider-container">
@@ -62,13 +60,11 @@
 import Slider from "./UI/Slider.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
 import { mapState } from "vuex";
-import Loader from './UI/Loader.vue';
 
 export default {
   data() {
     return {
-      loading: false,
-      dailyGoal: 0
+      dailyGoal: 0,
     };
   },
   computed: mapState({
@@ -105,11 +101,11 @@ export default {
     async pushUpdate() {
       const goal = parseInt(this.dailyGoal);
       try {
-        this.loading = true;
+        this.$store.commit("load");
         await this.$store.dispatch("postSettings", goal);
-        this.loading = false;
-      } catch(err) {
-        this.loading = false;
+        this.$store.commit("load");
+      } catch (err) {
+        this.$store.commit("load");
         console.log(err);
       }
       this.$router.push("timer");
@@ -121,7 +117,6 @@ export default {
   components: {
     Slider,
     BaseButton,
-    Loader
   },
 };
 </script>

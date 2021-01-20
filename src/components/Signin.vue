@@ -8,8 +8,6 @@
       @close="closeModal()"
     ></modal>
 
-    <loader :loading="loading"></loader>
-
     <h1>Log In Here!</h1>
     <form action="POST" @submit.prevent="signInVal()">
       <div class="form-control">
@@ -60,7 +58,6 @@
 
 <script>
 import BaseButton from "./UI/BaseButton.vue";
-import Loader from "./UI/Loader.vue";
 import Modal from "./UI/Modal.vue";
 import * as yup from "yup";
 
@@ -74,7 +71,6 @@ export default {
       modalStatus: false,
       modalMessage: "",
       modalType: null,
-      loading: false,
       errorArray: [],
       values: {
         email: "",
@@ -110,12 +106,12 @@ export default {
     },
     async pushSignIn() {
       try {
-        this.loading = true;
+        this.$store.commit("load");
         const result = await this.$store.dispatch("pushSignIn", {
           email: this.values.email,
           password: this.values.password,
         });
-        this.loading = false;
+        this.$store.commit("load");
         if (result.status !== 200) {
           const err = new Error(result.message);
           if (result.data) {
@@ -128,6 +124,7 @@ export default {
           this.$router.push("timer");
         }
       } catch (err) {
+        this.$store.commit("load");
         this.modalMessage = err.message;
         this.errorArray = err.data;
         this.modalType = "error";
@@ -140,7 +137,6 @@ export default {
   },
   components: {
     BaseButton,
-    Loader,
     Modal,
   },
 };

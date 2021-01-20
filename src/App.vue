@@ -4,7 +4,7 @@
       <h2>{{ message }}</h2>
     </modal>
     <app-header></app-header>
-    <loader v-if="loading"></loader>
+    <loader :loading="loading"></loader>
     <div class="main-body" v-if="!loading">
       <router-view></router-view>
     </div>
@@ -19,7 +19,6 @@ import Loader from "./components/UI/Loader.vue";
 export default {
   data: () => {
     return {
-      loading: false,
       showStatus: false,
       message: '',
       modalType: ''
@@ -28,7 +27,7 @@ export default {
   methods: {
     closeModal(value) {
       this.showStatus = value;
-    }
+    },
   },
   created() {
     // this.$store.dispatch("tryLogIn"); --> for auto login
@@ -39,6 +38,9 @@ export default {
     },
     logInStatus() {
       return this.$store.getters.logState;
+    },
+    loading() {
+      return this.$store.state.modalModule.loading;
     }
   },
   components: {

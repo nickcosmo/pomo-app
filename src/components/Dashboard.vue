@@ -1,6 +1,4 @@
 <template>
-  <loader :loading="loading"></loader>
-
   <div class="container">
     <div class="data">
       <h1>Dashboard</h1>
@@ -19,17 +17,14 @@
       :goal="dailyGoal"
     ></graph>
   </div>
-  <div></div>
 </template>
 
 <script>
 import Graph from "@/components/Graph.vue";
-import Loader from "./UI/Loader.vue";
 
 export default {
   data() {
     return {
-      loading: false,
       todaysHours: null,
       weekHours: null,
       totalHours: null,
@@ -53,7 +48,8 @@ export default {
   async created() {
     if (this.$store.state.authModule.isLoggedIn) {
       try {
-        // this.loading = true;
+        // this.$store.commit("load");
+
         const userHours = await fetch("http://localhost:3000/get-hours", {
           method: "GET",
           credentials: "include",
@@ -61,13 +57,17 @@ export default {
             "Content-Type": "application/json",
           },
         });
-
+        // this.$store.commit("load");
         const hourData = await userHours.json();
-        // this.dailyGoal = hourData.dailyGoal;
+
+        //update component data
         this.todaysHours = hourData.todaysHours;
         this.weekHours = hourData.weekHours;
         this.totalHours = hourData.totalHours;
         this.week = { ...hourData.week };
+        // this.dailyGoal = hourData.dailyGoal;
+
+        //update store data
         const {
           dailyGoal,
           totalHours,
@@ -83,18 +83,15 @@ export default {
           week: week,
         };
         this.$store.commit("updateHours", progressUpdate);
-        // console.log(hourData);
-        // console.log(this.$store.state.dashModule);
-        this.loading = false;
+        // this.$store.commit("load");
       } catch (err) {
-        this.loading = false;
+        // this.$store.commit("load");
         console.log(err);
       }
     }
   },
   components: {
     Graph,
-    Loader,
   },
 };
 </script>

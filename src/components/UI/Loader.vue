@@ -34,9 +34,6 @@ export default {
 }
 
 .modal-overlay {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   position: absolute;
   top: 0;
   left: 0;
@@ -48,7 +45,7 @@ export default {
 
 .dots {
   white-space: nowrap;
-  animation: move 1s linear;
+  animation: move 1.3s linear;
 }
 
 .loading-enter-active {
@@ -61,7 +58,7 @@ export default {
 
 @keyframes move {
   0% {
-    transform: translateX(-90px);
+    transform: translateX(-250px);
   }
   100% {
     transform: translateX(50px);

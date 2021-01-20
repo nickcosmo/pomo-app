@@ -10,8 +10,6 @@
       <h2>{{ modalMessage }}</h2>
     </modal>
 
-    <loader :loading="loading"></loader>
-
     <h1>Sign Up Here!</h1>
     <form @submit.prevent="signUpVal()">
       <div class="form-control">
@@ -95,7 +93,6 @@
 <script>
 import BaseButton from "./UI/BaseButton.vue";
 import Modal from "./UI/Modal.vue";
-import Loader from "./UI/Loader.vue";
 import * as yup from "yup";
 
 export default {
@@ -116,7 +113,6 @@ export default {
       modalMessage: "",
       modalType: null,
       errorArray: [],
-      loading: false,
       values: {
         name: "",
         email: "",
@@ -152,7 +148,7 @@ export default {
     },
     async pushSignUp() {
       try {
-        this.loading = true;
+        this.$store.commit("load");
         const result = await fetch("http://localhost:3000/sign-up", {
           method: "PUT",
           headers: {
@@ -165,7 +161,7 @@ export default {
             verifyPassword: this.values.verifyPassword,
           }),
         });
-        this.loading = false;
+        this.$store.commit("load");
         const resultJSON = await result.json();
         if (result.status !== 200) {
           const err = new Error(resultJSON.message);
@@ -183,6 +179,7 @@ export default {
           this.$router.push("timer");
         }
       } catch (err) {
+        this.$store.commit("load");
         this.modalMessage = err.message;
         this.errorArray = err.data;
         this.modalType = "error";
@@ -196,7 +193,6 @@ export default {
   components: {
     BaseButton,
     Modal,
-    Loader,
   },
 };
 </script>
