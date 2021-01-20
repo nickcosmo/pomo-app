@@ -1,9 +1,9 @@
 <template>
-  <div v-if="modalStatus" class="modal-overlay" />
+  <div v-if="status" class="modal-overlay" />
   <transition>
-    <div v-if="modalStatus" class="dialog">
-      <slot></slot>
-      <div v-if="logOutType">
+    <div v-if="status" class="dialog">
+      <h2>{{ message }}</h2>
+      <div v-if="type === 'logout'">
         <base-button
           @click="
             extendLogOut();
@@ -12,23 +12,16 @@
           >yes</base-button
         >
       </div>
-      <div v-if="errorType" @click="close()">
-        <div v-if="propData" class="errorBody">
+      <div v-if="type === 'error'">
+        <div v-if="errors" class="errorBody">
           <p><strong>validation errors:</strong></p>
           <ul>
-            <li v-for="message in data" :key="message">{{ message }}</li>
+            <li v-for="error in errors" :key="error">{{ error }}</li>
           </ul>
         </div>
-        <base-button>close</base-button>
       </div>
-      <div v-if="type === 'signin' || type === 'signup'">
-        <base-button
-          @click="
-            close();
-            redirect();
-          "
-          >close</base-button
-        >
+      <div v-if="type !== 'logout'">
+        <base-button @click="close()">close</base-button>
       </div>
     </div>
   </transition>
@@ -38,25 +31,16 @@
 import BaseButton from "./BaseButton.vue";
 
 export default {
-  props: ["type", "data", "nextRoute", "modalStatus"],
+  props: ["status"],
   computed: {
-    logOutType() {
-      if (this.type === "logout") {
-        return true;
-      }
-      return false;
+    type() {
+      return this.$store.state.modalModule.modalType;
     },
-    errorType() {
-      if (this.type === "error") {
-        return true;
-      }
-      return false;
+    errors() {
+      return this.$store.state.modalModule.modalErrors;
     },
-    propData() {
-      if (this.data) {
-        return true;
-      }
-      return false;
+    message() {
+      return this.$store.state.modalModule.modalMessage;
     },
   },
   methods: {
@@ -64,19 +48,10 @@ export default {
       this.$store.dispatch("setLogOut");
     },
     close() {
-      this.$emit("close", false);
-      if (this.type === "signin") {
-        this.$store.commit("newSignIn");
-      }
-      if (this.type === "signup") {
-        this.$store.commit("newSignUp");
-      }
-    },
-    redirect() {
-      // this.$router.push(this.nextRoute);
+      this.$store.commit("updateModalStatus");
     },
   },
-  emits: ["close", "extendLogOut", "redirect"],
+  emits: ["extendLogOut"],
   components: {
     BaseButton,
   },
@@ -95,21 +70,17 @@ export default {
   background-color: #0f0f0f;
   color: #efefef;
   padding: 10px;
-  /* animation: enter 0.25s linear; */
-  z-index: 91;
+  z-index: 95;
 }
 
 .modal-overlay {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 90;
+  z-index: 93;
 }
 
 .errorBody {
@@ -124,7 +95,7 @@ button {
 }
 
 h2 {
-  font-size: 80px;
+  font-size: 2rem;
 }
 
 .v-enter-active {

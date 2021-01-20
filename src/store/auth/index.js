@@ -9,9 +9,6 @@ const authModule = {
             isLoggedIn: false,
             logOutTime: 10000,
             logOutTimerId: null,
-            newSignIn: false,
-            newSignUp: false,
-            name: null
         }
     },
     actions: actions,

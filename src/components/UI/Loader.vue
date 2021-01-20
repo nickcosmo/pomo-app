@@ -28,7 +28,6 @@ export default {
   background-color: #0f0f0f;
   color: #efefef;
   padding: 10px;
-  /* animation: enter 0.25s linear; */
   overflow: hidden;
   z-index: 91;
 }
@@ -45,7 +44,7 @@ export default {
 
 .dots {
   white-space: nowrap;
-  animation: move 1.3s linear;
+  animation: move 2s linear;
 }
 
 .loading-enter-active {

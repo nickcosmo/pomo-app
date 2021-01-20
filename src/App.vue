@@ -1,10 +1,9 @@
 <template>
   <div>
-    <modal v-if="showStatus" :type="modalType" @close="closeModal()">
-      <h2>{{ message }}</h2>
-    </modal>
+    <modal :status="status"></modal>
     <app-header></app-header>
     <loader :loading="loading"></loader>
+    <loader></loader>
     <div class="main-body" v-if="!loading">
       <router-view></router-view>
     </div>
@@ -17,18 +16,6 @@ import Modal from "./components/UI/Modal.vue";
 import Loader from "./components/UI/Loader.vue";
 
 export default {
-  data: () => {
-    return {
-      showStatus: false,
-      message: '',
-      modalType: ''
-    };
-  },
-  methods: {
-    closeModal(value) {
-      this.showStatus = value;
-    },
-  },
   created() {
     // this.$store.dispatch("tryLogIn"); --> for auto login
   },
@@ -41,26 +28,29 @@ export default {
     },
     loading() {
       return this.$store.state.modalModule.loading;
-    }
+    },
+    status() {
+      return this.$store.state.modalModule.modalStatus;
+    },
   },
   components: {
     AppHeader,
     Modal,
-    Loader
+    Loader,
   },
   watch: {
-    logOutTime: function() {
+    logOutTime: function () {
       if (this.logOutTime === 5000) {
         this.showStatus = true;
         this.message = "Auto-Logout in 5 seconds.  Are you still Studying?";
         this.modalType = "logout";
       }
     },
-    logInStatus: function() {
-      if(this.logInStatus === false) {
+    logInStatus: function () {
+      if (this.logInStatus === false) {
         this.showStatus = false;
       }
-    }
+    },
   },
 };
 </script>

@@ -1,13 +1,4 @@
 <template>
-  <modal
-    :modalStatus="modalStatus"
-    :data=null
-    :type="modalType"
-    nextRoute="timer"
-    @close="closeModal()"
-  >
-    <h2>{{ modalMessage }}</h2>
-  </modal>
   <div class="container">
     <h1 class="timer">{{ displayMinutes }}:{{ displaySeconds }}</h1>
     <div>
@@ -30,17 +21,9 @@
 
 <script>
 import BaseButton from "./UI/BaseButton.vue";
-import Modal from "./UI/Modal.vue";
 import { mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      modalStatus: false,
-      modalMessage: "",
-      modalType: null,
-    };
-  },
   computed: {
     ...mapGetters(["displayMinutes", "displaySeconds"]),
     progressSeconds() {
@@ -63,33 +46,12 @@ export default {
     pauseTimer() {
       this.$store.commit("pauseTimer");
     },
-    closeModal(value) {
-      this.modalStatus = value;
-    },
   },
   mounted() {
     this.$store.commit("initMinutes");
-    if (this.$store.state.authModule.newSignIn) {
-      const name = this.$store.state.authModule.name;
-      this.modalMessage = `Hello, ${name}! Welcome Back!`;
-      this.modalType = "signin";
-      this.modalStatus = true;
-      // this.$store.commit("removeName");
-      return null;
-    }
-    if (this.$store.state.authModule.newSignUp) {
-      const name = this.$store.state.authModule.name;
-      this.modalMessage = `Thanks for signing up, ${name}! Your account was created successfully!`;
-      this.modalType = "signup";
-      this.modalStatus = true;
-      // this.$store.commit("removeName");
-      return null;
-    }
-    return (this.modalStatus = false);
   },
   components: {
     BaseButton,
-    Modal,
   },
 };
 </script>

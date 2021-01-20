@@ -86,7 +86,9 @@ export default {
         // this.$store.commit("load");
       } catch (err) {
         // this.$store.commit("load");
-        console.log(err);
+        this.$store.commit("updateModalType", "error");
+        this.$store.commit("updateModalMessage", err.message);
+        this.$store.commit("updateModalStatus");
       }
     }
   },

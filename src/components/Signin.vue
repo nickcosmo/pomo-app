@@ -1,13 +1,5 @@
 <template>
   <div class="container">
-    <modal
-      :modalStatus="modalStatus"
-      :data="errorArray"
-      :type="modalType"
-      nextRoute="timer"
-      @close="closeModal()"
-    ></modal>
-
     <h1>Log In Here!</h1>
     <form action="POST" @submit.prevent="signInVal()">
       <div class="form-control">
@@ -58,7 +50,6 @@
 
 <script>
 import BaseButton from "./UI/BaseButton.vue";
-import Modal from "./UI/Modal.vue";
 import * as yup from "yup";
 
 export default {
@@ -68,9 +59,6 @@ export default {
       password: yup.string().required(),
     });
     return {
-      modalStatus: false,
-      modalMessage: "",
-      modalType: null,
       errorArray: [],
       values: {
         email: "",
@@ -120,24 +108,26 @@ export default {
           }
           throw err;
         } else {
-          this.$store.commit("newSignIn", result.name);
+          this.$store.commit("updateModalType", "signin");
+          this.$store.commit(
+            "updateModalMessage",
+            `Welcome Back, ${result.name}!`
+          );
+          this.$store.commit("updateModalStatus");
           this.$router.push("timer");
         }
       } catch (err) {
-        this.$store.commit("load");
-        this.modalMessage = err.message;
-        this.errorArray = err.data;
-        this.modalType = "error";
-        this.modalStatus = true;
+        if(err.data) {
+          this.$store.commit("updateModalErrorData", err.data);
+        }
+        this.$store.commit("updateModalType", "error");
+        this.$store.commit("updateModalMessage", err.message);
+        this.$store.commit("updateModalStatus");
       }
-    },
-    closeModal(value) {
-      this.modalStatus = value;
     },
   },
   components: {
     BaseButton,
-    Modal,
   },
 };
 </script>

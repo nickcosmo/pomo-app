@@ -25,19 +25,25 @@ const actions = {
     return response;
   },
   async tryLogIn(context) {
-    if (localStorage.getItem("loggedIn")) {
-      const user = await fetch("http://localhost:3000/auto-log-in", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (user) {
-        context.dispatch("setLogOut");
-        localStorage.setItem("loggedIn", true);
-        context.commit("changeAuthState", true);
+    try {
+      if (localStorage.getItem("loggedIn")) {
+        const user = await fetch("http://localhost:3000/auto-log-in", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (user) {
+          context.dispatch("setLogOut");
+          localStorage.setItem("loggedIn", true);
+          context.commit("changeAuthState", true);
+        }
       }
+    } catch (err) {
+      this.$store.commit("updateModalType", "error");
+      this.$store.commit("updateModalMessage", err.message);
+      this.$store.commit("updateModalStatus");
     }
   },
   async setLogOut(context) {
@@ -63,17 +69,23 @@ const actions = {
     }
   },
   async postLogOut(context) {
-    const result = await fetch("http://localhost:3000/log-out", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (result) {
-      clearTimeout(timer);
-      localStorage.removeItem("loggedIn");
-      context.commit("changeAuthState", false);
+    try {
+      const result = await fetch("http://localhost:3000/log-out", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (result) {
+        clearTimeout(timer);
+        localStorage.removeItem("loggedIn");
+        context.commit("changeAuthState", false);
+      }
+    } catch (err) {
+      this.$store.commit("updateModalType", "error");
+      this.$store.commit("updateModalMessage", err.message);
+      this.$store.commit("updateModalStatus");
     }
   },
   async postSettings(context, dailyGoal) {
@@ -81,16 +93,22 @@ const actions = {
       ...context.rootState.timerModule.timeSettings,
       dailyGoal: dailyGoal,
     };
-    await fetch("http://localhost:3000/update-settings", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(settings),
-    });
-    // let userData = result.json();
-    // console.log(userData);
+    try {
+      await fetch("http://localhost:3000/update-settings", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(settings),
+      });
+      // let userData = result.json();
+      // console.log(userData);
+    } catch (err) {
+      this.$store.commit("updateModalType", "error");
+      this.$store.commit("updateModalMessage", err.message);
+      this.$store.commit("updateModalStatus");
+    }
   },
 };
 

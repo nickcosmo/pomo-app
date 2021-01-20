@@ -1,15 +1,5 @@
 <template>
   <div class="container">
-    <modal
-      :modalStatus="modalStatus"
-      :data="errorArray"
-      :type="modalType"
-      nextRoute="null"
-      @close="closeModal()"
-    >
-      <h2>{{ modalMessage }}</h2>
-    </modal>
-
     <h1>Sign Up Here!</h1>
     <form @submit.prevent="signUpVal()">
       <div class="form-control">
@@ -92,7 +82,6 @@
 
 <script>
 import BaseButton from "./UI/BaseButton.vue";
-import Modal from "./UI/Modal.vue";
 import * as yup from "yup";
 
 export default {
@@ -109,10 +98,6 @@ export default {
         }),
     });
     return {
-      modalStatus: false,
-      modalMessage: "",
-      modalType: null,
-      errorArray: [],
       values: {
         name: "",
         email: "",
@@ -171,28 +156,30 @@ export default {
           }
           throw err;
         } else {
-          this.$store.commit("newSignUp", resultJSON.name);
-          this.$store.dispatch("updateSettings", resultJSON.settings);
-          localStorage.setItem("loggedIn", true);
           this.$store.commit("changeAuthState", true);
-          this.$store.commit("updateDailyGoal", resultJSON.settings.dailyGoal);
+          this.$store.commit("updateModalType", "signup");
+          this.$store.commit(
+            "updateModalMessage",
+            `Thanks for signing up, ${resultJSON.name}! Now you can track your progress in the dashboard!`
+          );
+          this.$store.commit("updateModalStatus");
+          this.$router.push("timer");
+          
+          localStorage.setItem("loggedIn", true);
           this.$router.push("timer");
         }
       } catch (err) {
-        this.$store.commit("load");
-        this.modalMessage = err.message;
-        this.errorArray = err.data;
-        this.modalType = "error";
-        this.modalStatus = true;
+        if (err.data) {
+          this.$store.commit("updateModalErrorData", err.data);
+        }
+        this.$store.commit("updateModalType", "error");
+        this.$store.commit("updateModalMessage", err.message);
+        this.$store.commit("updateModalStatus");
       }
-    },
-    closeModal(value) {
-      this.modalStatus = value;
     },
   },
   components: {
     BaseButton,
-    Modal,
   },
 };
 </script>
