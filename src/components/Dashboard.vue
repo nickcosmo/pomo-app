@@ -15,6 +15,7 @@
       :saturday="week.saturday"
       :sunday="week.sunday"
       :goal="dailyGoal"
+      @id="getId"
     ></graph>
   </div>
 </template>
@@ -23,12 +24,14 @@
 import Graph from "@/components/Graph.vue";
 
 export default {
+  props: ["isLoggedIn"],
   data() {
     return {
-      todaysHours: null,
-      weekHours: null,
-      totalHours: null,
-      // dailyGoal: 0,
+      graphId: null,
+      todaysHours: 0,
+      weekHours: 0,
+      totalHours: 0,
+      dailyGoal: 0,
       week: {
         monday: 0,
         tuesday: 0,
@@ -40,16 +43,15 @@ export default {
       },
     };
   },
-  computed: {
-    dailyGoal() {
-      return this.$store.state.dashModule.dailyGoal;
+  methods: {
+    getId(id) {
+      this.graphId = id;
     },
   },
   async created() {
-    if (this.$store.state.authModule.isLoggedIn) {
+    if (this.isLoggedIn) {
       try {
         // this.$store.commit("load");
-
         const userHours = await fetch("http://localhost:3000/get-hours", {
           method: "GET",
           credentials: "include",
@@ -58,34 +60,41 @@ export default {
           },
         });
         // this.$store.commit("load");
-        const hourData = await userHours.json();
 
-        //update component data
+        const hourData = await userHours.json();
         this.todaysHours = hourData.todaysHours;
         this.weekHours = hourData.weekHours;
         this.totalHours = hourData.totalHours;
         this.week = { ...hourData.week };
-        // this.dailyGoal = hourData.dailyGoal;
+        this.dailyGoal = hourData.dailyGoal;
 
-        //update store data
-        const {
-          dailyGoal,
-          totalHours,
-          todaysHours,
-          weekHours,
-          week,
-        } = hourData;
-        const progressUpdate = {
-          dailyGoal: dailyGoal,
-          totalHours: totalHours,
-          todaysHours: todaysHours,
-          weekHours: weekHours,
-          week: week,
+        const goal = [
+          this.dailyGoal,
+          this.dailyGoal,
+          this.dailyGoal,
+          this.dailyGoal,
+          this.dailyGoal,
+          this.dailyGoal,
+          this.dailyGoal,
+        ];
+
+        const dailyData = [
+          this.week.monday,
+          this.week.tuesday,
+          this.week.wednesday,
+          this.week.thursday,
+          this.week.friday,
+          this.week.saturday,
+          this.week.sunday,
+        ];
+
+        const updateGraph = function (chart) {
+          chart.data.datasets[0].data = goal;
+          chart.data.datasets[1].data = dailyData;
+          chart.update();
         };
-        this.$store.commit("updateHours", progressUpdate);
-        // this.$store.commit("load");
+        updateGraph(this.graphId);
       } catch (err) {
-        // this.$store.commit("load");
         this.$store.commit("updateModalType", "error");
         this.$store.commit("updateModalMessage", err.message);
         this.$store.commit("updateModalStatus");

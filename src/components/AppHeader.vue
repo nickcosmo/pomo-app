@@ -1,13 +1,19 @@
 <template>
   <nav>
-    <div><router-link to="/timer">
-      <h1 class="title">POMO.</h1>
-      <p>the pomodoro app</p>
-    </router-link></div>
+    <div>
+      <router-link to="/timer">
+        <h1 class="title">POMO.</h1>
+        <p>the pomodoro app</p>
+      </router-link>
+    </div>
     <div>
       <ul>
-        <router-link to="/signin" v-if="!isLoggedIn"><li>log in</li></router-link>
-        <router-link to="/signup" v-if="!isLoggedIn"><li>sign up</li></router-link>
+        <router-link to="/signin" v-if="!isLoggedIn"
+          ><li>log in</li></router-link
+        >
+        <router-link to="/signup" v-if="!isLoggedIn"
+          ><li>sign up</li></router-link
+        >
         <router-link to="/dashboard"><li>dashboard</li></router-link>
         <router-link to="/timer"><li>timer</li></router-link>
         <router-link to="/settings"><li>settings</li></router-link>
@@ -19,27 +25,22 @@
 
 <script>
 export default {
-  computed: {
-    isLoggedIn() {
-      if(this.$store.state.authModule.isLoggedIn) {
-        return true;
-      }
-      return false;
-    }
-  },
+  props: ["isLoggedIn"],
   methods: {
     async postLogOut() {
       this.$store.commit("load");
       await this.$store.dispatch("postLogOut");
+      this.$store.commit("updateLogInState", false);
       this.$store.commit("load");
       this.$router.push("timer");
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-h1, p {
+h1,
+p {
   display: inline;
 }
 
@@ -67,7 +68,7 @@ li {
   display: inline-block;
   cursor: pointer;
   margin-left: 15px;
-  border: 2px solid #EFEFEF;
+  border: 2px solid #efefef;
   padding: 3px 5px;
 }
 

@@ -156,16 +156,13 @@ export default {
           }
           throw err;
         } else {
-          this.$store.commit("changeAuthState", true);
+          this.$store.commit("updateLogInState", true);
           this.$store.commit("updateModalType", "signup");
           this.$store.commit(
             "updateModalMessage",
             `Thanks for signing up, ${resultJSON.name}! Now you can track your progress in the dashboard!`
           );
           this.$store.commit("updateModalStatus");
-          this.$router.push("timer");
-          
-          localStorage.setItem("loggedIn", true);
           this.$router.push("timer");
         }
       } catch (err) {

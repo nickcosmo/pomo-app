@@ -1,11 +1,11 @@
 <template>
   <div>
     <modal :status="status"></modal>
-    <app-header></app-header>
+    <app-header :isLoggedIn="isLoggedIn"></app-header>
     <loader :loading="loading"></loader>
     <loader></loader>
     <div class="main-body" v-if="!loading">
-      <router-view></router-view>
+      <router-view :isLoggedIn="isLoggedIn"></router-view>
     </div>
   </div>
 </template>
@@ -16,15 +16,21 @@ import Modal from "./components/UI/Modal.vue";
 import Loader from "./components/UI/Loader.vue";
 
 export default {
-  created() {
-    // this.$store.dispatch("tryLogIn"); --> for auto login
+  async created() {
+    const cookies = document.cookie.split("=");
+    const found = cookies.find((cookie) => cookie === "loggedIn");
+    if (found) {
+      this.$store.commit("updateLogInState", true);
+      await this.$store.dispatch("tryLogIn");
+      this.$store.commit("initMinutes");
+    }
   },
   computed: {
+    isLoggedIn() {
+      return this.$store.state.authModule.isLoggedIn;
+    },
     logOutTime() {
       return this.$store.getters.logOutTime;
-    },
-    logInStatus() {
-      return this.$store.getters.logState;
     },
     loading() {
       return this.$store.state.modalModule.loading;
@@ -44,11 +50,6 @@ export default {
         this.showStatus = true;
         this.message = "Auto-Logout in 5 seconds.  Are you still Studying?";
         this.modalType = "logout";
-      }
-    },
-    logInStatus: function () {
-      if (this.logInStatus === false) {
-        this.showStatus = false;
       }
     },
   },

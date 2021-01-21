@@ -1,22 +1,6 @@
-import actions from "./actions.js";
-
 const dashboard = {
   state() {
-    return {
-      dailyGoal: 0,
-      totalHours: 0,
-      todaysHours: 0,
-      weekHours: 0,
-      week: {
-        monday: 0,
-        tuesday: 0,
-        wednesday: 0,
-        thursday: 0,
-        friday: 0,
-        saturday: 0,
-        sunday: 0,
-      },
-    };
+    return {};
   },
   getters: {},
   mutations: {
@@ -28,7 +12,31 @@ const dashboard = {
       };
     },
   },
-  actions: actions,
+  actions: {
+    updateHours(context) {
+      const mins = context.rootState.timerModule.progressSeconds / 60;
+      const hours = parseFloat((mins / 60).toFixed(2));
+      context.dispatch("pushHours", hours);
+    },
+    async pushHours(context, hours) {
+      try {
+        await fetch("http://localhost:3000/update-hours", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            hours: hours,
+          }),
+        });
+      } catch (err) {
+        this.$store.commit("updateModalType", "error");
+        this.$store.commit("updateModalMessage", err.message);
+        this.$store.commit("updateModalStatus");
+      }
+    },
+  },
 };
 
 export default dashboard;

@@ -7,7 +7,7 @@
         @slide="update"
         :val="studyInterval"
         length="study"
-        min="15"
+        min="10"
         max="45"
         step="5"
       ></slider>
@@ -31,7 +31,7 @@
         @slide="update"
         :val="longBreakInterval"
         length="long-break"
-        min="10"
+        min="5"
         max="30"
         step="5"
       ></slider>
@@ -45,8 +45,8 @@
         max="24"
         id="goal"
         name="goal"
-        v-model="dailyGoal"
-        @blur="updateDailyGoal"
+        :value="dailyGoal"
+        @input="updateDailyGoal"
         onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
       />
     </div>
@@ -62,26 +62,17 @@ import BaseButton from "@/components/UI/BaseButton.vue";
 import { mapState } from "vuex";
 
 export default {
-  data() {
-    return {
-      dailyGoal: 0,
-    };
-  },
+  props: ["isLoggedIn"],
   computed: mapState({
     studyInterval: (state) => state.timerModule.timeSettings.studyInterval,
     breakInterval: (state) => state.timerModule.timeSettings.breakInterval,
     longBreakInterval: (state) =>
       state.timerModule.timeSettings.longBreakInterval,
-    isLoggedIn() {
-      if (this.$store.state.authModule.isLoggedIn) {
-        return true;
-      }
-      return false;
-    },
+    dailyGoal: (state) => state.timerModule.dailyGoal,
   }),
   methods: {
-    updateDailyGoal() {
-      this.$store.dispatch("updateDailyGoal", this.dailyGoal);
+    updateDailyGoal(e) {
+      this.$store.commit("updateDailyGoal", parseInt(e.target.value));
     },
     update(values) {
       const pushValues = {
@@ -96,13 +87,12 @@ export default {
       } else {
         pushValues.longBreakInterval = values[0];
       }
-      this.$store.dispatch("updateSettings", pushValues);
+      this.$store.dispatch("updateSettings", pushValues, null);
     },
     async pushUpdate() {
-      const goal = parseInt(this.dailyGoal);
       try {
         this.$store.commit("load");
-        await this.$store.dispatch("postSettings", goal);
+        await this.$store.dispatch("postSettings");
         this.$store.commit("load");
       } catch (err) {
         this.$store.commit("load");
@@ -110,9 +100,6 @@ export default {
       }
       this.$router.push("timer");
     },
-  },
-  created() {
-    this.dailyGoal = this.$store.state.dashModule.dailyGoal;
   },
   components: {
     Slider,

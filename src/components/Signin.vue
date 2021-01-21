@@ -108,6 +108,7 @@ export default {
           }
           throw err;
         } else {
+          this.$store.commit("updateLogInState", true);
           this.$store.commit("updateModalType", "signin");
           this.$store.commit(
             "updateModalMessage",
@@ -117,7 +118,7 @@ export default {
           this.$router.push("timer");
         }
       } catch (err) {
-        if(err.data) {
+        if (err.data) {
           this.$store.commit("updateModalErrorData", err.data);
         }
         this.$store.commit("updateModalType", "error");

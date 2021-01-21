@@ -31,6 +31,8 @@ const mutations = {
 
   updateSettings: (state, newSettings) => state.timeSettings = newSettings,
 
+  updateDailyGoal: (state, newGoal) => (state.dailyGoal = newGoal),
+
   resetValues(state) {
     state.progressWidth = 0;
     state.progressSeconds = 0;

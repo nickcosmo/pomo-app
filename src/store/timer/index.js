@@ -6,6 +6,7 @@ import getters from "./getters";
 const timerModule = {
   state() {
     return {
+      dailyGoal: 0,
       timeSettings: {
         studyInterval: 25,
         breakInterval: 5,

@@ -6,9 +6,9 @@ const authModule = {
     // namespaced: true,
     state: () => {
         return {
-            isLoggedIn: false,
             logOutTime: 10000,
             logOutTimerId: null,
+            isLoggedIn: false,
         }
     },
     actions: actions,

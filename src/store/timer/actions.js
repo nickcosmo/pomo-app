@@ -6,6 +6,7 @@ const actions = {
     if (context.state.startCount === 1) {
       interval = setInterval(function() {
         if (!context.state.pause) {
+
           // calculate total mins for progress bar
           let initMins;
           if (context.state.status === "study") {
@@ -23,7 +24,7 @@ const actions = {
           ) {
             if (
               context.state.status === "study" &&
-              localStorage.getItem("loggedIn") === "true"
+              context.rootState.authModule.isLoggedIn === true
             ) {
               context.dispatch("updateHours");
             }
@@ -32,7 +33,7 @@ const actions = {
             return null;
           }
 
-          // logic to decrease mins and reset seconds
+          // decrease mins and reset seconds
           if (context.state.currentTime.minutes >= 0) {
             if (context.state.currentTime.seconds === 0) {
               context.commit("decreaseMinutes");
@@ -60,13 +61,16 @@ const actions = {
   setTitle(context) {
     return (document.title = `${context.getters.displayMinutes}:${context.getters.displaySeconds}`);
   },
-  updateSettings(context, newSettings) {
+  updateSettings(context, newSettings, goal) {
     const settings = {
       studyInterval: newSettings.studyInterval,
       breakInterval: newSettings.breakInterval,
       longBreakInterval: newSettings.longBreakInterval,
     };
     context.commit("updateSettings", settings);
+    if(goal) {
+      context.commit("updateDailyGoal", goal);
+    }
   },
 };
 
