@@ -44,15 +44,18 @@ export default {
     Modal,
     Loader,
   },
-  watch: {
-    logOutTime: function () {
-      if (this.logOutTime === 5000) {
-        this.showStatus = true;
-        this.message = "Auto-Logout in 5 seconds.  Are you still Studying?";
-        this.modalType = "logout";
-      }
-    },
-  },
+  // watch: {
+  //   logOutTime: function () {
+  //     if (this.logOutTime === 5000) {
+  //       this.$store.commit("updateModalType", "signin");
+  //       this.$store.commit(
+  //         "updateModalMessage",
+  //         `Welcome Back, ${result.name}!`
+  //       );
+  //       this.$store.commit("updateModalStatus");
+  //     }
+  //   },
+  // },
 };
 </script>
 

@@ -1,5 +1,6 @@
 let timer;
 let autoLogOutTime = 10 * 1000;
+let warningTime = 5000;
 let interval;
 // let autoLogOutTime = 12 * 60 * 60 * 1000;
 
@@ -15,8 +16,12 @@ const actions = {
     });
     const resultData = await result.json();
     if (result.status === 200) {
-      // context.dispatch("setLogOut"); --> for auto log out
-      context.dispatch("updateSettings", resultData.settings, resultData.settings.dailyGoal);
+      context.dispatch("setLogOut");
+      context.dispatch(
+        "updateSettings",
+        resultData.settings,
+        resultData.settings.dailyGoal
+      );
     }
     const response = { status: result.status, ...resultData };
     return response;
@@ -32,7 +37,7 @@ const actions = {
       });
       if (user) {
         const userData = await user.json();
-        // context.dispatch("setLogOut"); --> for auto logout
+        context.dispatch("setLogOut");
         context.dispatch("updateSettings", userData.settings);
         context.commit("updateDailyGoal", userData.settings.dailyGoal);
       }
@@ -46,23 +51,24 @@ const actions = {
     if (context.state.logOutTimerId) {
       clearTimeout(context.state.logOutTimerId);
       clearInterval(interval);
-      context.commit("resetLogOutTime");
-      interval = setInterval(() => {
-        context.commit("updateLogOutTime");
-      }, 1000);
-      timer = setTimeout(() => {
-        context.dispatch("postLogOut");
-      }, autoLogOutTime);
-      context.commit("updateLogOutTimerId", timer);
-    } else {
-      interval = setInterval(() => {
-        context.commit("updateLogOutTime");
-      }, 1000);
-      timer = setTimeout(() => {
-        context.dispatch("postLogOut");
-      }, autoLogOutTime);
-      context.commit("updateLogOutTimerId", timer);
+      context.commit("resetLogOutTime", autoLogOutTime);
     }
+    interval = setInterval(() => {
+      context.commit("updateLogOutTime");
+      if (context.state.logOutTime === warningTime) {
+        context.commit("updateModalType", "logout");
+        context.commit(
+          "updateModalMessage",
+          "You have been studying for a while.  Do you want to continue?"
+        );
+        context.commit("updateModalStatus");
+      }
+    }, 1000);
+    timer = setTimeout(() => {
+      context.commit("updateModalStatus");
+      context.dispatch("postLogOut");
+    }, autoLogOutTime);
+    context.commit("updateLogOutTimerId", timer);
   },
   async postLogOut(context) {
     try {
@@ -97,7 +103,11 @@ const actions = {
         body: JSON.stringify(settings),
       });
       const userData = await user.json();
-      context.dispatch("updateSettings", userData.settings, userData.settings.dailyGoal);
+      context.dispatch(
+        "updateSettings",
+        userData.settings,
+        userData.settings.dailyGoal
+      );
     } catch (err) {
       context.commit("updateModalType", "error");
       context.commit("updateModalMessage", err.message);

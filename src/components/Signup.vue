@@ -163,6 +163,7 @@ export default {
             `Thanks for signing up, ${resultJSON.name}! Now you can track your progress in the dashboard!`
           );
           this.$store.commit("updateModalStatus");
+          this.$store.dispatch("setLogOut");
           this.$router.push("timer");
         }
       } catch (err) {
