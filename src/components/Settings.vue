@@ -110,12 +110,12 @@ export default {
 
 <style scoped>
 h1 {
-  font-size: 60px;
+  font-size: 6em;
 }
 
 input {
   width: 60px;
-  font-size: 28px;
+  font-size: 3em;
   height: 30px;
   text-align: center;
   border-radius: 20px;
@@ -133,7 +133,10 @@ label {
 .container {
   width: 30%;
   margin: auto;
-  padding: 10px;
+  /* padding: 10px; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
   text-align: left;
 }
 
@@ -161,5 +164,41 @@ button {
 /* Firefox */
 .goalInput[type="number"] {
   -moz-appearance: textfield;
+}
+
+@media screen and (max-width: 1555px) {
+  .container {
+    width: 40%;
+  }
+  h1 {
+    font-size: 5em;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .container {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .container {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 775px) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  h1 {
+    font-size: 4em;
+  }
+  input, label {
+    font-size: 2em;
+  }
 }
 </style>

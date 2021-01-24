@@ -108,7 +108,7 @@ export default {
             ],
           },
           responsive: true,
-          // maintainAspectRatio: false,
+          maintainAspectRatio: false,
         },
       });
       this.$emit("id", graphId);
@@ -124,7 +124,24 @@ export default {
 .canvas-container {
   margin-top: 15px;
   display: inline-block;
-  width: 800px;
-  height: 400px;
+  width: 100%;
+  /* margin-left: -5%; */
+  height: 30em;
 }
+
+/* @media screen and (max-width: 1555px) {
+
+}
+
+@media screen and (max-width: 1100px) {
+
+}
+
+@media screen and (max-width: 950px) {
+
+}
+
+@media screen and (max-width: 775px) {
+
+} */
 </style>

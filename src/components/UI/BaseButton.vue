@@ -1,18 +1,17 @@
 <template>
   <button>
-      <slot></slot>
+    <slot></slot>
   </button>
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style scoped>
 button {
   font-family: inherit;
-  font-size: 25px;
+  font-size: 3em;
   height: 50px;
   outline: none;
   border: 2px solid white;
@@ -26,5 +25,11 @@ button {
 button:hover {
   border-color: #00ffff;
   color: #00ffff;
+}
+
+@media screen and (max-width: 380px) {
+  button {
+    font-size: 2em;
+  }
 }
 </style>

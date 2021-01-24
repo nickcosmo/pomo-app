@@ -3,8 +3,8 @@
     <modal :status="status"></modal>
     <app-header :isLoggedIn="isLoggedIn"></app-header>
     <loader :loading="loading"></loader>
-    <loader></loader>
-    <div class="main-body" v-if="!loading">
+    <!-- <div class="main-body" v-if="!loading"> -->
+    <div class="main-body">
       <router-view :isLoggedIn="isLoggedIn"></router-view>
     </div>
   </div>
@@ -44,18 +44,6 @@ export default {
     Modal,
     Loader,
   },
-  // watch: {
-  //   logOutTime: function () {
-  //     if (this.logOutTime === 5000) {
-  //       this.$store.commit("updateModalType", "signin");
-  //       this.$store.commit(
-  //         "updateModalMessage",
-  //         `Welcome Back, ${result.name}!`
-  //       );
-  //       this.$store.commit("updateModalStatus");
-  //     }
-  //   },
-  // },
 };
 </script>
 
@@ -65,13 +53,24 @@ html {
   margin: none;
 }
 
-.main-body,
-header {
+.main-body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #efefef;
+  font-size: 10px;
   background-color: #0f0f0f;
+  overflow: hidden;
 }
+
+@media screen and (max-width: 500px) {
+  .main-body {
+    margin-top: 6%;
+  }
+}
+
 </style>

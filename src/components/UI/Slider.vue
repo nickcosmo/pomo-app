@@ -39,7 +39,7 @@ div {
 .slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 80%;
+  width: 100%;
   height: 16px;
   background: #efefef;
   border-radius: 20px;

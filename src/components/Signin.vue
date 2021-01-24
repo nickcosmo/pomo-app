@@ -39,8 +39,8 @@
         ></span
       >
     </form>
-    <div class="errorMessage" v-if="Object.values(errors).length > 0">
-      <ul>
+    <div v-if="Object.values(errors).length > 0">
+      <ul class="errorMessage">
         <li v-if="errors.email">{{ errors.email }}</li>
         <li v-if="errors.password">{{ errors.password }}</li>
       </ul>
@@ -135,16 +135,12 @@ export default {
 
 <style scoped>
 h1 {
-  font-size: 60px;
-}
-
-h2 {
-  font-size: 45px;
+  font-size: 6em;
 }
 
 label,
 input {
-  font-size: 30px;
+  font-size: 3em;
   display: block;
   width: 100%;
 }
@@ -166,10 +162,58 @@ a {
 .container {
   width: 30%;
   margin: auto;
+  /* display: flex; */
   text-align: left !important;
 }
 
 .errorMessage {
+  font-size: 1rem;
+  list-style-type: none;
   color: #ff6961;
+}
+
+@media screen and (max-width: 1555px) {
+  .container {
+    width: 40%;
+  }
+  h1 {
+    font-size: 5em;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .container {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .container {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 775px) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  h1 {
+    font-size: 4em;
+  }
+  label,
+  input {
+    font-size: 2em;
+  }
+  a {
+    display: inline-block;
+    width: 100%;
+    font-size: 1.25em;
+  }
+  span {
+    margin: 0;
+  }
 }
 </style>

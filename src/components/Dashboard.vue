@@ -109,20 +109,56 @@ export default {
 
 <style scoped>
 h1 {
-  font-size: 60px;
+  font-size: 6em;
 }
 
 p {
-  font-size: 30px;
+  font-size: 3em;
 }
 
 .data {
   text-align: left;
-  padding-left: 40px;
 }
 
 .container {
   display: inline-block;
-  width: 800px;
+  margin: auto;
+  width: 30%;
+}
+
+@media screen and (max-width: 1555px) {
+  .container {
+    width: 40%;
+  }
+  h1 {
+    font-size: 5em;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .container {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .container {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 775px) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  h1 {
+    font-size: 4em;
+  }
+  p {
+    font-size: 2em;
+  }
 }
 </style>

@@ -59,16 +59,17 @@ export default {
 <style scoped>
 .count {
   color: #0f0f0f;
+  font-size: 1rem;
   position: absolute;
   top: 50%;
   margin-top: -12.5px;
   left: 50%;
   margin-left: -60px;
-  z-index: 99;
+  z-index: 70;
 }
 
 .timer {
-  font-size: 200px;
+  font-size: 15rem;
   color: #efefef;
 }
 
@@ -87,7 +88,7 @@ export default {
 
 .outer-bar {
   display: inline-block;
-  width: 700px;
+  width: 100%;
   background-color: #efefef;
 }
 
@@ -97,5 +98,29 @@ export default {
   justify-content: center;
   background-color: #00f3f3;
   animation: fill 25s linear infinite;
+}
+
+@media screen and (max-width: 800px) {
+  .timer {
+    font-size: 13rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .timer {
+    font-size: 11rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .timer {
+    font-size: 9rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .timer {
+    font-size: 7rem;
+  }
 }
 </style>
