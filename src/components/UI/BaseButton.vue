@@ -11,15 +11,14 @@ export default {};
 <style scoped>
 button {
   font-family: inherit;
-  font-size: 3em;
+  font-size: 30px;
   height: 50px;
   outline: none;
-  border: 2px solid white;
+  border: 2px solid #EFEFEF;
   background-color: inherit;
-  color: white;
-  padding: 5px 10px;
+  color: #EFEFEF;
+  padding: 0px 10px;
   cursor: pointer;
-  margin: 0px 10px;
 }
 
 button:hover {
@@ -27,9 +26,16 @@ button:hover {
   color: #00ffff;
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 450px) {
   button {
-    font-size: 2em;
+    font-size: 25px;
   }
 }
+
+@media screen and (max-width: 380px) {
+  button {
+    font-size: 20px;
+  }
+}
+
 </style>

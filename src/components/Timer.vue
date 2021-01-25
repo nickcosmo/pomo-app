@@ -2,8 +2,8 @@
   <div class="container">
     <h1 class="timer">{{ displayMinutes }}:{{ displaySeconds }}</h1>
     <div>
-      <base-button @click="pauseTimer">PAUSE</base-button>
-      <base-button @click="startTimer">START</base-button>
+      <base-button @click="pauseTimer">pause</base-button>
+      <base-button @click="startTimer">start</base-button>
       <!-- <base-button @click="resetTimer">NEXT</base-button> -->
     </div>
     <div class="bar-container">
@@ -59,17 +59,17 @@ export default {
 <style scoped>
 .count {
   color: #0f0f0f;
-  font-size: 1rem;
+  font-size: 1.25rem;
   position: absolute;
   top: 50%;
-  margin-top: -12.5px;
+  margin-top: -13px;
   left: 50%;
   margin-left: -60px;
-  z-index: 70;
+  z-index: 30;
 }
 
 .timer {
-  font-size: 15rem;
+  font-size: 23em;
   color: #efefef;
 }
 
@@ -100,27 +100,40 @@ export default {
   animation: fill 25s linear infinite;
 }
 
+button {
+  margin: 0px 10px;
+}
+
 @media screen and (max-width: 800px) {
   .timer {
-    font-size: 13rem;
+    font-size: 20em;
   }
 }
 
 @media screen and (max-width: 700px) {
   .timer {
-    font-size: 11rem;
+    font-size: 17em;
   }
 }
 
 @media screen and (max-width: 550px) {
   .timer {
-    font-size: 9rem;
+    font-size: 15em;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .timer {
+    font-size: 12em;
   }
 }
 
 @media screen and (max-width: 380px) {
   .timer {
-    font-size: 7rem;
+    font-size: 10em;
+  }
+  .count {
+    font-size: 2em;
   }
 }
 </style>

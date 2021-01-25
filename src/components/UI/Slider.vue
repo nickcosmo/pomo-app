@@ -57,7 +57,13 @@ div {
 }
 
 .slider::-moz-range-thumb {
-  background: #00f6f6;;
+  background: #00f6f6;
   cursor: pointer;
 }
+
+/* @media screen and (max-width: 590px) {
+  .slider {
+    width: 100%;
+  }
+} */
 </style>

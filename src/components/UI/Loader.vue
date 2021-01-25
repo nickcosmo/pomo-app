@@ -44,7 +44,7 @@ export default {
 
 .dots {
   white-space: nowrap;
-  animation: move 2s linear;
+  animation: move 3.5s linear 0s infinite;
 }
 
 .loading-enter-active {
@@ -57,10 +57,10 @@ export default {
 
 @keyframes move {
   0% {
-    transform: translateX(-250px);
+    transform: translateX(-400px);
   }
   100% {
-    transform: translateX(50px);
+    transform: translateX(30px);
   }
 }
 
@@ -83,6 +83,15 @@ export default {
   100% {
     transform: scale(0);
     opacity: 0%;
+  }
+}
+
+@media screen and (max-width: 775px) {
+  .dialog {
+    position: absolute;
+    left: calc(50% - 9rem);
+    top: calc(50% - 9rem);
+    width: 18rem;
   }
 }
 </style>

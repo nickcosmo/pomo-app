@@ -20,8 +20,8 @@ export default {
     const cookies = document.cookie.split("=");
     const found = cookies.find((cookie) => cookie === "loggedIn");
     if (found) {
-      this.$store.commit("updateLogInState", true);
       await this.$store.dispatch("tryLogIn");
+      this.$store.commit("updateLogInState", true);
       this.$store.commit("initMinutes");
     }
   },
@@ -72,5 +72,4 @@ html {
     margin-top: 6%;
   }
 }
-
 </style>

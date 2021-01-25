@@ -50,9 +50,7 @@
         onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
       />
     </div>
-    <base-button @click="pushUpdate" v-if="isLoggedIn"
-      >save your settings</base-button
-    >
+    <base-button @click="pushUpdate" v-if="isLoggedIn">save</base-button>
   </div>
 </template>
 
@@ -114,7 +112,7 @@ h1 {
 }
 
 input {
-  width: 60px;
+  width: 80px;
   font-size: 3em;
   height: 30px;
   text-align: center;
@@ -126,7 +124,7 @@ input {
 }
 
 label {
-  display: block;
+  /* display: block; */
   font-size: 30px;
 }
 
@@ -147,11 +145,12 @@ label {
 
 .slider-container,
 .input-container {
-  margin: 10px 0px;
+  margin: 5px 0px;
 }
 
 button {
-  margin-top: 10px 0px;
+  margin-top: 5px;
+  width: 20%;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -191,14 +190,28 @@ button {
   .container {
     width: 80%;
   }
+  button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  input,
+  label {
+    font-size: 2.5em;
+  }
+  h1 {
+    font-size: 40px;
+  }
 }
 
 @media screen and (max-width: 380px) {
   h1 {
-    font-size: 4em;
+    font-size: 32.5px;
   }
-  input, label {
-    font-size: 2em;
+  label,
+  input {
+    font-size: 20px;
   }
 }
 </style>

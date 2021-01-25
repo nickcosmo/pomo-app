@@ -65,7 +65,7 @@
       <base-button type="submit">submit</base-button>
       <span
         ><router-link to="/signin"
-          >Already a member? Signin instead!</router-link
+          >Already a member? Sign in instead!</router-link
         ></span
       >
     </form>
@@ -198,8 +198,10 @@ input {
 }
 
 button,
-input {
-  margin: 10px 0px;
+label,
+input,
+a {
+  margin: 5px 0px;
 }
 
 span {
@@ -209,6 +211,7 @@ span {
 a {
   text-decoration: none;
   color: inherit;
+  font-size: 1.5em;
 }
 
 .container {
@@ -242,26 +245,41 @@ a {
   .container {
     width: 60%;
   }
+  a {
+    display: inline-block;
+    width: 100%;
+  }
+  span {
+    margin: 0;
+  }
 }
 
 @media screen and (max-width: 775px) {
   .container {
     width: 80%;
   }
+  a {
+    font-size: 12.5px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  h1 {
+    font-size: 40px;
+  }
 }
 
 @media screen and (max-width: 380px) {
   h1 {
-    font-size: 4em;
+    font-size: 32.5px;
   }
   label,
   input {
-    font-size: 2em;
+    font-size: 20px;
   }
   a {
     display: inline-block;
     width: 100%;
-    font-size: 1.25em;
   }
   span {
     margin: 0;

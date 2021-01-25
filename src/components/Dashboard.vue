@@ -153,12 +153,21 @@ p {
   }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 450px) {
   h1 {
-    font-size: 4em;
+    font-size: 40px;
   }
   p {
-    font-size: 2em;
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  h1 {
+    font-size: 32.5px;
+  }
+  p {
+    font-size: 20px;
   }
 }
 </style>

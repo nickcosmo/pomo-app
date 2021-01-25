@@ -1,8 +1,8 @@
 let timer;
-let autoLogOutTime = 10 * 1000;
-let warningTime = 5000;
+// let autoLogOutTime = 10 * 1000;
+let warningTime = 5 * 60 * 1000;
 let interval;
-// let autoLogOutTime = 12 * 60 * 60 * 1000;
+let autoLogOutTime = 8 * 60 * 60 * 1000;
 
 const actions = {
   async pushSignIn(context, signInData) {
@@ -80,7 +80,9 @@ const actions = {
         },
       });
       if (result) {
-        clearTimeout(timer);
+        context.commit("updateLogInState", false);
+        clearTimeout(context.state.logOutTimerId);
+        clearInterval(interval);
       }
     } catch (err) {
       context.commit("updateModalType", "error");

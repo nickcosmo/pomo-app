@@ -64,13 +64,14 @@ export default {
   border-radius: 10px;
   position: absolute;
   left: calc(50% - 20rem);
-  top: calc(50% - 10rem);
+  /* top: calc(50% - 28rem); */
+  margin-top: 20%;
   width: 40rem;
   border: 2px solid #00f6f6;
   background-color: #0f0f0f;
   color: #efefef;
   padding: 10px;
-  z-index: 95;
+  z-index: 94;
 }
 
 .modal-overlay {
@@ -91,11 +92,11 @@ export default {
 }
 
 button {
-  margin: 10px 0px !important;
+  margin-top: 15px !important;
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 40px;
 }
 
 .v-enter-active {
@@ -125,6 +126,17 @@ h2 {
   100% {
     transform: scale(0);
     opacity: 0%;
+  }
+}
+
+@media screen and (max-width: 775px) {
+  h2 {
+    font-size: 30px;
+  }
+  .dialog {
+    position: absolute;
+    left: calc(50% - 9rem);
+    width: 18rem;
   }
 }
 </style>
