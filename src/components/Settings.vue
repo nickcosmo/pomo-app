@@ -112,7 +112,7 @@ h1 {
 }
 
 input {
-  width: 80px;
+  /* width: 80px; */
   font-size: 3em;
   height: 30px;
   text-align: center;
@@ -167,14 +167,14 @@ button {
 
 @media screen and (max-width: 1555px) {
   .container {
-    width: 40%;
+    width: 35%;
   }
   h1 {
     font-size: 5em;
   }
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1115px) {
   .container {
     width: 50%;
   }

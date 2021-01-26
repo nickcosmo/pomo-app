@@ -128,7 +128,7 @@ p {
 
 @media screen and (max-width: 1555px) {
   .container {
-    width: 40%;
+    width: 35%;
   }
   h1 {
     font-size: 5em;

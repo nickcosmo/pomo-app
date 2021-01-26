@@ -80,7 +80,7 @@ const actions = {
   //pushing hours
   updateHours(context) {
     const mins = context.rootState.timerModule.progressSeconds / 60;
-    const hours = parseFloat((mins / 60).toFixed(2));
+    const hours = parseFloat((mins / 60)).toFixed(2);
     context.dispatch("pushHours", hours);
   },
   async pushHours(context, hours) {

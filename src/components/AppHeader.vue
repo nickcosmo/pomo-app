@@ -23,9 +23,9 @@
         <router-link to="/signup" v-if="!isLoggedIn"
           ><li>sign up</li></router-link
         >
-        <router-link to="/dashboard"><li>dashboard</li></router-link>
         <router-link to="/timer"><li>timer</li></router-link>
         <router-link to="/settings"><li>settings</li></router-link>
+        <router-link to="/dashboard"><li>dashboard</li></router-link>
         <a href="#" @click="postLogOut()" v-if="isLoggedIn"><li>log out</li></a>
       </ul>
     </div>
@@ -114,7 +114,8 @@ a {
 }
 
 @media screen and (max-width: 1100px) {
-  li, .title p {
+  li,
+  .title p {
     font-size: 1em;
   }
 }

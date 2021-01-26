@@ -218,6 +218,8 @@ a {
   width: 30%;
   margin: auto;
   text-align: left !important;
+  /* overflow: visible;
+  white-space: nowrap; */
 }
 
 .errorMessage {
@@ -228,15 +230,15 @@ a {
 
 @media screen and (max-width: 1555px) {
   .container {
-    width: 40%;
+    width: 35%;
   }
   h1 {
     font-size: 5em;
   }
 }
 
-@media screen and (max-width: 1100px) {
-  .container {
+@media screen and (max-width: 1115px) {
+  .container {  
     width: 50%;
   }
 }

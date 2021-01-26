@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <p class="timer-header">{{ studyStatus }}</p>
     <h1 class="timer">{{ displayMinutes }}:{{ displaySeconds }}</h1>
     <div>
       <base-button @click="pauseTimer">pause</base-button>
@@ -35,6 +36,15 @@ export default {
     pomodoroCount() {
       return this.$store.state.timerModule.pomodoroCount;
     },
+    studyStatus() {
+      if (this.$store.state.timerModule.status === "study") {
+        return "time to study!";
+      } else if (this.$store.state.timerModule.status === "break") {
+        return "take a break!";
+      } else {
+        return "take a long break!";
+      }
+    },
   },
   methods: {
     startTimer() {
@@ -68,6 +78,11 @@ export default {
   z-index: 30;
 }
 
+.timer-header {
+  color: inherit;
+  font-size: 30px;
+}
+
 .timer {
   font-size: 23em;
   color: #efefef;
@@ -83,7 +98,7 @@ export default {
 
 .bar {
   display: inline-block;
-  height: 30px;
+  height: 38px;
 }
 
 .outer-bar {
@@ -132,7 +147,8 @@ button {
   .timer {
     font-size: 10em;
   }
-  .count {
+  .count,
+  .timer-header {
     font-size: 2em;
   }
 }

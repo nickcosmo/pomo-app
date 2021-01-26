@@ -29,9 +29,6 @@ export default {
     isLoggedIn() {
       return this.$store.state.authModule.isLoggedIn;
     },
-    logOutTime() {
-      return this.$store.getters.logOutTime;
-    },
     loading() {
       return this.$store.state.modalModule.loading;
     },
@@ -57,8 +54,10 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 4%;
   display: flex;
+  /* width: 90vw; */
+  /* height: 60vh; */
   align-items: center;
   justify-content: center;
   color: #efefef;
@@ -69,7 +68,7 @@ html {
 
 @media screen and (max-width: 500px) {
   .main-body {
-    margin-top: 6%;
+    margin-top: 9%;
   }
 }
 </style>
