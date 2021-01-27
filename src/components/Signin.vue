@@ -212,6 +212,9 @@ a {
   a {
     font-size: 12.5px;
   }
+  button {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 450px) {

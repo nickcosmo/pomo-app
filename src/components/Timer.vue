@@ -3,8 +3,8 @@
     <p class="timer-header">{{ studyStatus }}</p>
     <h1 class="timer">{{ displayMinutes }}:{{ displaySeconds }}</h1>
     <div>
-      <base-button @click="pauseTimer">pause</base-button>
       <base-button @click="startTimer">start</base-button>
+      <base-button @click="pauseTimer">pause</base-button>
       <!-- <base-button @click="resetTimer">NEXT</base-button> -->
     </div>
     <div class="bar-container">
@@ -98,7 +98,7 @@ export default {
 
 .bar {
   display: inline-block;
-  height: 38px;
+  height: 40px;
 }
 
 .outer-bar {
@@ -134,6 +134,10 @@ button {
 @media screen and (max-width: 550px) {
   .timer {
     font-size: 15em;
+  }
+  button {
+    width: 100%;
+    margin: 5px 0px;
   }
 }
 

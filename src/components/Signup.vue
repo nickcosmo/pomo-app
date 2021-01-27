@@ -238,7 +238,7 @@ a {
 }
 
 @media screen and (max-width: 1115px) {
-  .container {  
+  .container {
     width: 50%;
   }
 }
@@ -262,6 +262,9 @@ a {
   }
   a {
     font-size: 12.5px;
+  }
+  button {
+    width: 100%;
   }
 }
 

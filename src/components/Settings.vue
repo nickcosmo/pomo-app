@@ -132,8 +132,8 @@ label {
   width: 30%;
   margin: auto;
   /* padding: 10px; */
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   /* justify-content: center; */
   text-align: left;
 }
@@ -150,7 +150,7 @@ label {
 
 button {
   margin-top: 5px;
-  width: 20%;
+  /* width: 20%; */
 }
 
 /* Chrome, Safari, Edge, Opera */
