@@ -112,29 +112,22 @@ h1 {
 }
 
 input {
-  /* width: 80px; */
   font-size: 3em;
   height: 30px;
   text-align: center;
   border-radius: 20px;
   border: none;
   outline: none;
-  /* padding-left: 20px; */
   margin: 10px;
 }
 
 label {
-  /* display: block; */
   font-size: 30px;
 }
 
 .container {
   width: 30%;
   margin: auto;
-  /* padding: 10px; */
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: center; */
   text-align: left;
 }
 

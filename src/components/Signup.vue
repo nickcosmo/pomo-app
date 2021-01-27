@@ -261,7 +261,7 @@ a {
     width: 80%;
   }
   a {
-    font-size: 12.5px;
+    font-size: 15px;
   }
   button {
     width: 100%;

@@ -2,9 +2,9 @@
   <div class="container">
     <div class="data">
       <h1>Dashboard</h1>
-      <p>Today's Hours: {{ todaysHours }}</p>
-      <p>This Weeks Hours: {{ weekHours }}</p>
-      <p>All Time Hours: {{ totalHours }}</p>
+      <p>Today: {{ todaysHours }} hrs</p>
+      <p>This Week: {{ weekHours }} hrs</p>
+      <p>All Time: {{ totalHours }} hrs</p>
     </div>
     <graph
       :monday="week.monday"
