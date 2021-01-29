@@ -52,7 +52,7 @@ export default {
     if (this.isLoggedIn) {
       try {
         // this.$store.commit("load");
-        const userHours = await fetch("http://localhost:3000/get-hours", {
+        const userHours = await fetch(`${process.env.VUE_APP_API}/get-hours`, {
           method: "GET",
           credentials: "include",
           headers: {

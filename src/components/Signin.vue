@@ -118,6 +118,7 @@ export default {
           this.$router.push("timer");
         }
       } catch (err) {
+        this.$store.commit("load");
         if (err.data) {
           this.$store.commit("updateModalErrorData", err.data);
         }

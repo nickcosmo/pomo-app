@@ -48,11 +48,23 @@ export default {
 }
 
 .loading-enter-active {
-  animation: enter 0.2s ease-out;
+  transition: all 0.3s ease;
+}
+
+.loading-leave-from,
+.loading-enter-to {
+  opacity: 100%;
+  transform: scale(1);
 }
 
 .loading-leave-active {
-  animation: leave 0.2s ease-in;
+  transition: all 0.3s ease;
+}
+
+.loading-leave-to,
+.loading-enter-from {
+  opacity: 0%;
+  transform: scale(0);
 }
 
 @keyframes move {
@@ -61,28 +73,6 @@ export default {
   }
   100% {
     transform: translateX(30px);
-  }
-}
-
-@keyframes enter {
-  0% {
-    opacity: 0%;
-    transform: scale(0);
-  }
-  100% {
-    opacity: 100%;
-    transform: scale(1);
-  }
-}
-
-@keyframes leave {
-  0% {
-    transform: scale(1);
-    opacity: 100%;
-  }
-  100% {
-    transform: scale(0);
-    opacity: 0%;
   }
 }
 

@@ -134,7 +134,7 @@ export default {
     async pushSignUp() {
       try {
         this.$store.commit("load");
-        const result = await fetch("http://localhost:3000/sign-up", {
+        const result = await fetch(`${process.env.VUE_APP_API}/sign-up`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

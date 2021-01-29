@@ -128,20 +128,4 @@ export default {
   /* margin-left: -5%; */
   height: 30em;
 }
-
-/* @media screen and (max-width: 1555px) {
-
-}
-
-@media screen and (max-width: 1100px) {
-
-}
-
-@media screen and (max-width: 950px) {
-
-}
-
-@media screen and (max-width: 775px) {
-
-} */
 </style>

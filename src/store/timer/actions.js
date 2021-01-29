@@ -85,7 +85,7 @@ const actions = {
   },
   async pushHours(context, hours) {
     try {
-      await fetch("http://localhost:3000/update-hours", {
+      await fetch(`${process.env.VUE_APP_API}/update-hours`, {
         method: "POST",
         credentials: "include",
         headers: {

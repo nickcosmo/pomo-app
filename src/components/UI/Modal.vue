@@ -1,6 +1,6 @@
 <template>
   <div v-if="status" class="modal-overlay" />
-  <transition>
+  <transition name="modal">
     <div v-if="status" class="dialog">
       <h2>{{ message }}</h2>
       <div v-if="type === 'logout'">
@@ -99,34 +99,24 @@ h2 {
   font-size: 40px;
 }
 
-.v-enter-active {
-  animation: enter 0.2s ease-out;
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0%;
+  transform: scale(0);
 }
 
-.v-leave-active {
-  animation: leave 0.2s ease-in;
+.modal-enter-to,
+.modal-leave-from {
+  opacity: 100%;
+  transform: scale(1);
 }
 
-@keyframes enter {
-  0% {
-    opacity: 0%;
-    transform: scale(0);
-  }
-  100% {
-    opacity: 100%;
-    transform: scale(1);
-  }
+.modal-enter-active {
+  transition: all 0.3s ease;
 }
 
-@keyframes leave {
-  0% {
-    transform: scale(1);
-    opacity: 100%;
-  }
-  100% {
-    transform: scale(0);
-    opacity: 0%;
-  }
+.modal-leave-active {
+  transition: all 0.3s ease;
 }
 
 @media screen and (max-width: 775px) {

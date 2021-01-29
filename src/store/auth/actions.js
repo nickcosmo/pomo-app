@@ -6,7 +6,7 @@ let autoLogOutTime = 8 * 60 * 60 * 1000;
 
 const actions = {
   async pushSignIn(context, signInData) {
-    const result = await fetch("http://localhost:3000/log-in", {
+    const result = await fetch(`${process.env.VUE_APP_API}/log-in`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -28,7 +28,7 @@ const actions = {
   },
   async tryLogIn(context) {
     try {
-      const user = await fetch("http://localhost:3000/auto-log-in", {
+      const user = await fetch(`${process.env.VUE_APP_API}/auto-log-in`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -72,7 +72,7 @@ const actions = {
   },
   async postLogOut(context) {
     try {
-      const result = await fetch("http://localhost:3000/log-out", {
+      const result = await fetch(`${process.env.VUE_APP_API}/log-out`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -96,7 +96,7 @@ const actions = {
       dailyGoal: context.rootState.timerModule.dailyGoal,
     };
     try {
-      const user = await fetch("http://localhost:3000/update-settings", {
+      const user = await fetch(`${process.env.VUE_APP_API}/update-settings`, {
         method: "POST",
         credentials: "include",
         headers: {
