@@ -72,7 +72,7 @@ export default {
     transform: translateX(-400px);
   }
   100% {
-    transform: translateX(30px);
+    transform: translateX(0px);
   }
 }
 

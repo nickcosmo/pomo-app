@@ -1,5 +1,5 @@
 <template>
-  <div v-if="status" class="modal-overlay" />
+  <div v-if="status" class="modal-overlay"></div>
   <transition name="modal">
     <div v-if="status" class="dialog">
       <h2>{{ message }}</h2>
@@ -64,8 +64,8 @@ export default {
   border-radius: 10px;
   position: absolute;
   left: calc(50% - 20rem);
-  /* top: calc(50% - 28rem); */
-  margin-top: 20%;
+  top: calc(50% - 10rem);
+  /* margin-top: 20%; */
   width: 40rem;
   border: 2px solid #00f6f6;
   background-color: #0f0f0f;
