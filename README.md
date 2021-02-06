@@ -1,5 +1,7 @@
 # pomo-app
 
+Pomo-app is the front end build to a pomodoro timer app built with Vuejs.  This utilizes Vue Router and state management with Vuex.  
+
 ## Project setup
 ```
 npm install

@@ -44,7 +44,7 @@ export default {
 
 .dots {
   white-space: nowrap;
-  animation: move 3.5s linear 0s infinite;
+  animation: move 2.5s linear 0s infinite;
 }
 
 .loading-enter-active {
