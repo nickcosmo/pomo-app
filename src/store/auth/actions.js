@@ -6,25 +6,35 @@ let autoLogOutTime = 8 * 60 * 60 * 1000;
 
 const actions = {
   async pushSignIn(context, signInData) {
-    const result = await fetch(`${process.env.VUE_APP_API}/log-in`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(signInData),
-    });
-    const resultData = await result.json();
-    if (result.status === 200) {
-      context.dispatch("setLogOut");
-      context.dispatch(
-        "updateSettings",
-        resultData.settings,
-        resultData.settings.dailyGoal
-      );
+    try {
+      const result = await fetch(`${process.env.VUE_APP_API}/log-in`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signInData),
+      });
+      const resultData = await result.json();
+      if (result.status === 200) {
+        context.dispatch("setLogOut");
+        context.dispatch(
+          "updateSettings",
+          resultData.settings,
+          resultData.settings.dailyGoal
+        );
+      }
+      const response = { status: result.status, ...resultData };
+      return response;
+    } catch (err) {
+      context.commit("load");
+      if (err.data) {
+        context.commit("updateModalErrorData", err.data);
+      }
+      context.commit("updateModalType", "error");
+      context.commit("updateModalMessage", err.message);
+      context.commit("updateModalStatus");
     }
-    const response = { status: result.status, ...resultData };
-    return response;
   },
   async tryLogIn(context) {
     try {
